@@ -50,7 +50,7 @@ const Forgotpassword: React.FC = () => {
       await api
         .post("/validate", { token, id })
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           setReady(true);
         })
         .catch(() => {
