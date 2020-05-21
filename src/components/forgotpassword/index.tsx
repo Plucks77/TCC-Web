@@ -37,14 +37,14 @@ interface IValue {
 
 const Forgotpassword: React.FC = () => {
   const [visible, setVisible] = useState(false);
-  const [password, setPassword] = useState("");
-  const [confPassword, setConfpassword] = useState("");
+  const [isValid, setIsValid] = useState(false);
   let { token, id } = useParams();
 
   useEffect(() => {
     async function execute() {
       await api.post("/validate", { token, id }).then((response) => {
         console.log(response);
+        setIsValid(true);
       });
     }
     execute();
