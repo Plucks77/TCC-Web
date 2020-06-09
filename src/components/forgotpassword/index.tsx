@@ -6,16 +6,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 
 import api from "../../api";
-import {
-  Container,
-  Campos,
-  Titulo,
-  DivCampo,
-  Input,
-  Label,
-  Botao,
-  Erro,
-} from "./styles";
+import { Container, Campos, Titulo, DivCampo, Input, Label, Botao, Erro } from "./styles";
 
 const changeSchema = yup.object({
   senha: yup
@@ -25,9 +16,7 @@ const changeSchema = yup.object({
   confirmaSenha: yup
     .string()
     .required("Digite a mesma senha de cima!")
-    .test("passwords-match", "Verifique se digitou a mesma senha!", function (
-      value
-    ) {
+    .test("passwords-match", "Verifique se digitou a mesma senha!", function (value) {
       return this.parent.senha === value;
     }),
 });
@@ -37,7 +26,7 @@ interface IValue {
   confirmaSenha: string;
 }
 
-const Forgotpassword: React.FC = () => {
+const ForgotPassword: React.FC = () => {
   const [visible, setVisible] = useState(false);
   const [ready, setReady] = useState(false);
   const [isChanged, setIsChanged] = useState(false);
@@ -63,12 +52,10 @@ const Forgotpassword: React.FC = () => {
 
   async function handleEnviar(values: IValue) {
     setIsSending(true);
-    await api
-      .put(`/changepassword/${id}`, { password: values.senha })
-      .then((response) => {
-        setIsChanged(true);
-        setIsSending(false);
-      });
+    await api.put(`/changepassword/${id}`, { password: values.senha }).then((response) => {
+      setIsChanged(true);
+      setIsSending(false);
+    });
   }
 
   return ready ? (
@@ -108,21 +95,14 @@ const Forgotpassword: React.FC = () => {
                     onBlur={props.handleBlur("confirmaSenha")}
                     maxLength={50}
                   />
-                  <Erro>
-                    {props.touched.confirmaSenha && props.errors.confirmaSenha}
-                  </Erro>
+                  <Erro>{props.touched.confirmaSenha && props.errors.confirmaSenha}</Erro>
                 </DivCampo>
                 {!isSending ? (
                   <Botao type="submit" disabled={props.isSubmitting}>
                     Salvar
                   </Botao>
                 ) : (
-                  <Loader
-                    type="ThreeDots"
-                    color="#818be7"
-                    height={100}
-                    width={100}
-                  />
+                  <Loader type="ThreeDots" color="#818be7" height={100} width={100} />
                 )}
               </Campos>
             </form>
@@ -139,4 +119,4 @@ const Forgotpassword: React.FC = () => {
   );
 };
 
-export default Forgotpassword;
+export default ForgotPassword;
