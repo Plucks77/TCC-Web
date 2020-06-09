@@ -74,6 +74,11 @@ const AdminHome: React.FC = () => {
           <TabelaTitulo>Valor</TabelaTitulo>
         </TabelaContainer>
 
+        <TabelaContainer>
+          <TabelaTitulo>Nome</TabelaTitulo>
+          <TabelaTitulo>Valor</TabelaTitulo>
+        </TabelaContainer>
+
         <PacoteContainer>
           <PacoteTexto>Pacote xxx</PacoteTexto>
           <PacoteTexto>R$ 2000,00</PacoteTexto>
