@@ -5,8 +5,6 @@ import Loader from "react-loader-spinner";
 import { FiLogOut } from "react-icons/fi";
 import { FaPlus } from "react-icons/fa";
 
-import api from "../../api";
-
 import {
   Container,
   SpinnerContainer,
