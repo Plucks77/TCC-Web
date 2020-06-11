@@ -55,6 +55,10 @@ const AdminGuias: React.FC = () => {
     history.push("/Admin");
   }
 
+  function handleNavigateGuia() {
+    history.push("/Admin/guia");
+  }
+
   return (
     <Container>
       <Header>
@@ -78,7 +82,7 @@ const AdminGuias: React.FC = () => {
 
             {guias.map((guia) => (
               <>
-                <PacoteContainer key={guia.id}>
+                <PacoteContainer key={guia.id} onClick={() => handleNavigateGuia()}>
                   <PacoteTexto>{guia.name}</PacoteTexto>
                   <PacoteTexto>
                     {guia.media ? guia.media : "Ainda não possui avaliações"}

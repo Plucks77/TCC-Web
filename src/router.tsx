@@ -4,6 +4,7 @@ import Forgot from "./components/ForgotPassword";
 import AdminLogin from "./components/AdminLogin";
 import AdminHome from "./components/AdminHome";
 import AdminGuias from "./components/AdminGuias";
+import AdminGuia from "./components/AdminGuia";
 
 export default function RouterApp() {
   return (
@@ -17,6 +18,9 @@ export default function RouterApp() {
         </Route>
         <Route path="/Admin/guias">
           <AdminGuias />
+        </Route>
+        <Route path="/Admin/guia">
+          <AdminGuia />
         </Route>
         <Route path="/Admin">
           <AdminHome />
