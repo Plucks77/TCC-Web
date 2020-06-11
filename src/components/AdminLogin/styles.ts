@@ -20,6 +20,7 @@ export const Main = styled.div`
 `;
 
 export const Titulo = styled.text`
+  text-align: center;
   font-size: 32px;
   font-weight: bold;
   color: #36453b;
