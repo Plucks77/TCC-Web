@@ -70,6 +70,7 @@ const AdminGuia: React.FC = () => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
+          localStorage.clear();
           history.push("/Admin/login");
         }
       });
