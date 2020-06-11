@@ -44,6 +44,10 @@ const AdminHome: React.FC = () => {
     history.push("/Admin/login");
   }
 
+  function handleNavigateGuias() {
+    history.push("/Admin/guias");
+  }
+
   function handleAddPacote() {
     console.log("Adicionar pacote");
   }
@@ -52,7 +56,7 @@ const AdminHome: React.FC = () => {
     <Container>
       <Header>
         <MenuSelecionado>Pacotes</MenuSelecionado>
-        <MenuNaoSelecionado>Guias</MenuNaoSelecionado>
+        <MenuNaoSelecionado onClick={() => handleNavigateGuias()}>Guias</MenuNaoSelecionado>
         <div style={{ flex: 5 }}></div>
         <Logout onClick={() => handleLogout()}>
           <FiLogOut color="36453B" size={60} />

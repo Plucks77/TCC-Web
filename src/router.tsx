@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Forgot from "./components/ForgotPassword";
 import AdminLogin from "./components/AdminLogin";
 import AdminHome from "./components/AdminHome";
+import AdminGuias from "./components/AdminGuias";
 
 export default function RouterApp() {
   return (
@@ -13,6 +14,9 @@ export default function RouterApp() {
         </Route>
         <Route path="/Admin/login">
           <AdminLogin />
+        </Route>
+        <Route path="/Admin/guias">
+          <AdminGuias />
         </Route>
         <Route path="/Admin">
           <AdminHome />

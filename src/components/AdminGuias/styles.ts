@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
+  flex: 1;
   min-height: 100vh;
   background: #eeeeee;
   flex-direction: column;
@@ -97,10 +98,8 @@ export const PacoteTexto = styled.div`
 export const SpinnerContainer = styled.div`
   display: flex;
   flex: 1;
-  height: 100vh;
   justify-content: center;
   align-items: center;
-  background: white;
 `;
 
 export const Circulo = styled.div`
