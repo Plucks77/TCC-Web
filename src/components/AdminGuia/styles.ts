@@ -8,13 +8,23 @@ export const Container = styled.div`
   background: #eeeeeeee;
 `;
 
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 2em 2em;
+`;
+
+export const Icone = styled.div`
+  cursor: pointer;
+`;
+
 export const Main = styled.div`
   background: rgb(129, 139, 231, 0.3);
   display: flex;
+  flex: 1;
   flex-direction: column;
-  height: 500px;
   min-width: 700px;
-  margin: 5em 5em;
+  margin: 1em 5em;
   border-radius: 20px;
 `;
 
@@ -45,7 +55,7 @@ export const CampoDescricao = styled.div`
   min-width: 640px;
 `;
 
-export const Titulo = styled.text`
+export const Titulo = styled.span`
   font-size: 30px;
   color: #36453b;
   font-weight: 500;
@@ -75,8 +85,9 @@ export const InputDescricao = styled.textarea`
 export const BotoesContainer = styled.div`
   display: flex;
   align-self: flex-end;
-  margin-bottom: auto;
   margin-right: 5em;
+  margin-top: auto;
+  margin-bottom: 1em;
 `;
 
 export const Botao = styled.button`
@@ -88,4 +99,20 @@ export const Botao = styled.button`
   font-size: 25px;
   margin: 0 0 0 2em;
   cursor: pointer;
+`;
+
+export const SpinnerContainer = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex: 1;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: white;
 `;
