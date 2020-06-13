@@ -5,6 +5,8 @@ import AdminLogin from "./components/AdminLogin";
 import AdminHome from "./components/AdminHome";
 import AdminGuias from "./components/AdminGuias";
 import AdminGuia from "./components/AdminGuia";
+import AdminCreateGuia from "./components/AdminCreateGuia";
+import PageNotFound from "./components/PageNotFound";
 
 export default function RouterApp() {
   return (
@@ -22,8 +24,14 @@ export default function RouterApp() {
         <Route path="/Admin/guia">
           <AdminGuia />
         </Route>
+        <Route path="/Admin/create/guia">
+          <AdminCreateGuia />
+        </Route>
         <Route path="/Admin">
           <AdminHome />
+        </Route>
+        <Route>
+          <PageNotFound />
         </Route>
       </Switch>
     </Router>
