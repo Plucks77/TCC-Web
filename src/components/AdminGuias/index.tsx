@@ -72,6 +72,10 @@ const AdminGuias: React.FC = () => {
     history.push("/Admin/guia", { guia_id: id });
   }
 
+  function handleNavigateCreateGuia() {
+    history.push("/Admin/create/guia");
+  }
+
   return ready ? (
     <Container>
       <Header>
@@ -86,7 +90,12 @@ const AdminGuias: React.FC = () => {
         {guias.length > 0 ? (
           <>
             <Circulo>
-              <FaPlus style={{ cursor: "pointer" }} onClick={() => {}} color="36453B" size={60} />
+              <FaPlus
+                style={{ cursor: "pointer" }}
+                onClick={() => handleNavigateCreateGuia()}
+                color="36453B"
+                size={60}
+              />
             </Circulo>
             <TabelaContainer>
               <TabelaTitulo>Nome</TabelaTitulo>
