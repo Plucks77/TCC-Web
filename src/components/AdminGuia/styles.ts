@@ -18,7 +18,7 @@ export const Icone = styled.div`
   cursor: pointer;
 `;
 
-export const Main = styled.div`
+export const Main = styled.form`
   background: rgb(129, 139, 231, 0.3);
   display: flex;
   flex: 1;
@@ -71,6 +71,16 @@ export const Input = styled.input`
   color: #36453b;
 `;
 
+export const InputTel = {
+  width: "15em",
+  height: "30px",
+  border: "3px solid #818be7",
+  borderRadius: "10px",
+  paddingLeft: "10px",
+  fontSize: "20px",
+  color: "#36453b",
+};
+
 export const InputDescricao = styled.textarea`
   box-sizing: border-box;
   width: 100%;
@@ -115,4 +125,20 @@ export const LoadingContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: white;
+`;
+
+export const Erro = styled.small`
+  color: crimson;
+  font-size: 16px;
+  align-self: center;
+  margin-top: 1px;
+`;
+
+export const ModalContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 30;
 `;
