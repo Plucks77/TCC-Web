@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Forgot from "./components/ForgotPassword";
 import AdminLogin from "./components/AdminLogin";
 import AdminHome from "./components/AdminHome";
+import AdminPacote from "./components/AdminPacote";
 import AdminGuias from "./components/AdminGuias";
 import AdminGuia from "./components/AdminGuia";
 import AdminCreateGuia from "./components/AdminCreateGuia";
@@ -26,6 +27,9 @@ export default function RouterApp() {
         </Route>
         <Route path="/Admin/create/guia">
           <AdminCreateGuia />
+        </Route>
+        <Route path="/Admin/pacote">
+          <AdminPacote />
         </Route>
         <Route path="/Admin">
           <AdminHome />
