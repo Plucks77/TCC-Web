@@ -18,25 +18,51 @@ import {
   PacoteContainer,
   PacoteTexto,
   Circulo,
+  LoadingContainer,
 } from "./styles";
+import api from "../../api";
+
+interface pacote {
+  id: number;
+  name: string;
+  price: number;
+}
 
 const AdminHome: React.FC = () => {
   const [ready, setReady] = useState(false);
-  const [token, setToken] = useState("");
-  const [adminId, setAdminId] = useState("");
+  const [pacotes, setPacotes] = useState<pacote[]>([]);
 
   const history = useHistory();
+
+  let config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const admin_id = localStorage.getItem("admin_id");
     if (token && admin_id) {
-      setToken(token);
-      setAdminId(admin_id);
       setReady(true);
     } else {
       history.push("/Admin/login");
     }
+  }, []);
+
+  useEffect(() => {
+    api
+      .get("pacotes", config)
+      .then((res) => {
+        if (res.status === 200) {
+          setPacotes(res.data);
+        }
+      })
+      .catch((erro) => {
+        if (erro.response.status === 401) {
+          history.push("/Admin/login");
+        }
+      });
   }, []);
 
   function handleLogout() {
@@ -52,6 +78,10 @@ const AdminHome: React.FC = () => {
     console.log("Adicionar pacote");
   }
 
+  function handleNavigatePacote(id: number) {
+    history.push("/Admin/pacote", { pacote_id: id });
+  }
+
   return ready ? (
     <Container>
       <Header>
@@ -64,104 +94,34 @@ const AdminHome: React.FC = () => {
       </Header>
 
       <Tabela>
-        <Circulo>
-          <FaPlus
-            style={{ cursor: "pointer" }}
-            onClick={handleAddPacote}
-            color="36453B"
-            size={60}
-          />
-        </Circulo>
+        {pacotes.length > 0 ? (
+          <>
+            <Circulo>
+              <FaPlus
+                style={{ cursor: "pointer" }}
+                onClick={handleAddPacote}
+                color="36453B"
+                size={60}
+              />
+            </Circulo>
 
-        <TabelaContainer>
-          <TabelaTitulo>Nome</TabelaTitulo>
-          <TabelaTitulo>Valor</TabelaTitulo>
-        </TabelaContainer>
+            <TabelaContainer>
+              <TabelaTitulo>Nome</TabelaTitulo>
+              <TabelaTitulo>Valor</TabelaTitulo>
+            </TabelaContainer>
 
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
-
-        <PacoteContainer>
-          <PacoteTexto>Pacote xxx</PacoteTexto>
-          <PacoteTexto>R$ 2000,00</PacoteTexto>
-        </PacoteContainer>
+            {pacotes.map((pacote) => (
+              <PacoteContainer key={pacote.id} onClick={() => handleNavigatePacote(pacote.id)}>
+                <PacoteTexto>{pacote.name}</PacoteTexto>
+                <PacoteTexto>R$ {pacote.price}</PacoteTexto>
+              </PacoteContainer>
+            ))}
+          </>
+        ) : (
+          <LoadingContainer>
+            <Loader type="ThreeDots" color="#818be7" height={100} width={100} />
+          </LoadingContainer>
+        )}
       </Tabela>
     </Container>
   ) : (

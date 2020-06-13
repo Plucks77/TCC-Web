@@ -108,3 +108,11 @@ export const Circulo = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  flex: 1;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+`;
