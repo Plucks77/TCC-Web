@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
-
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-
-import InputMask from "react-input-mask";
-
 import { Formik } from "formik";
 import * as yup from "yup";
-
 import { useHistory } from "react-router-dom";
-
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 
@@ -95,7 +89,7 @@ const AdminPacote: React.FC = () => {
     if (token && admin_id) {
       setReady(true);
     } else {
-      history.push("/Admin/login");
+      handleLogout();
     }
   }, []);
 
@@ -109,8 +103,7 @@ const AdminPacote: React.FC = () => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          localStorage.clear();
-          history.push("/Admin/login");
+          handleLogout();
         }
       });
   }, []);
@@ -125,8 +118,7 @@ const AdminPacote: React.FC = () => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          localStorage.clear();
-          history.push("/Admin/login");
+          handleLogout();
         }
       });
   }, []);
@@ -141,13 +133,10 @@ const AdminPacote: React.FC = () => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          localStorage.clear();
-          history.push("/Admin/login");
+          handleLogout();
         }
       });
   }, []);
-
-  useEffect(() => {}, []);
 
   function handleNavigateBack() {
     history.goBack();
@@ -202,18 +191,16 @@ const AdminPacote: React.FC = () => {
           }}
           validationSchema={pacoteSchema}
           onSubmit={(values, actions) => {
-            // console.log(values);
             api
               .put(`pacote/edit/${pacote.id}`, values, config)
               .then((res) => {
                 if (res.status === 200) {
-                  history.goBack();
+                  handleNavigateBack();
                 }
               })
               .catch((erro) => {
                 if (erro.response.status === 401) {
-                  localStorage.clear();
-                  history.push("/Admin/login");
+                  handleLogout();
                 }
               });
           }}

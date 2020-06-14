@@ -7,6 +7,7 @@ import AdminPacote from "./components/AdminPacote";
 import AdminGuias from "./components/AdminGuias";
 import AdminGuia from "./components/AdminGuia";
 import AdminCreateGuia from "./components/AdminCreateGuia";
+import AdminCreatePacote from "./components/AdminCreatePacote";
 import PageNotFound from "./components/PageNotFound";
 
 export default function RouterApp() {
@@ -30,6 +31,9 @@ export default function RouterApp() {
         </Route>
         <Route path="/Admin/pacote">
           <AdminPacote />
+        </Route>
+        <Route path="/Admin/create/pacote">
+          <AdminCreatePacote />
         </Route>
         <Route path="/Admin">
           <AdminHome />

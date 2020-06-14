@@ -74,12 +74,12 @@ const AdminHome: React.FC = () => {
     history.push("/Admin/guias");
   }
 
-  function handleAddPacote() {
-    console.log("Adicionar pacote");
-  }
-
   function handleNavigatePacote(id: number) {
     history.push("/Admin/pacote", { pacote_id: id });
+  }
+
+  function handleNavigateCreatePacote() {
+    history.push("/Admin/create/pacote");
   }
 
   return ready ? (
@@ -99,7 +99,7 @@ const AdminHome: React.FC = () => {
             <Circulo>
               <FaPlus
                 style={{ cursor: "pointer" }}
-                onClick={handleAddPacote}
+                onClick={() => handleNavigateCreatePacote()}
                 color="36453B"
                 size={60}
               />
