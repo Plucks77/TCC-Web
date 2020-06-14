@@ -63,8 +63,9 @@ export const Titulo = styled.span`
 `;
 
 export const Input = styled.input`
+  box-sizing: border-box;
   width: 15em;
-  height: 30px;
+  height: 2em;
   border: 3px solid ${Admin.main};
   border-radius: 10px;
   padding-left: 10px;
@@ -74,7 +75,7 @@ export const Input = styled.input`
 
 export const InputTel = {
   width: "15em",
-  height: "30px",
+  height: "2em",
   border: `3px solid ${Admin.main}`,
   borderRadius: "10px",
   paddingLeft: "10px",

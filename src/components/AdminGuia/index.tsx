@@ -41,8 +41,8 @@ const guiaSchema = yup.object({
   tel: yup
     .string()
     .required("O número de telefone do guia é necessário!")
-    .min(13, "O número de telefone do guia deve ter pelo menos 10 dígitos!")
-    .test("valida-telefone", "O número de telefone deve estar no formato correto!", (val) => {
+    .min(13, "O telefone do guia deve ter pelo menos (DDD) +8 dígitos!")
+    .test("valida-telefone", "O telefone deve estar no formato (DDD) +8 dígitos!", (val) => {
       var re = /([(][0-9]{2}[)])\s([0-9]{8,9})/;
       return re.test(val);
     }),
