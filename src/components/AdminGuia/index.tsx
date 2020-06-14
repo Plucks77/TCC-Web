@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
-
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-
 import InputMask from "react-input-mask";
-
 import { Formik } from "formik";
 import * as yup from "yup";
-
 import { useHistory } from "react-router-dom";
-
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 
@@ -46,9 +41,9 @@ const guiaSchema = yup.object({
   tel: yup
     .string()
     .required("O número de telefone do guia é necessário!")
-    .min(10, "O número de telefone do guia deve ter pelo menos 12 dígitos!")
-    .test("valida-telefone", "O número de telefone deve ter pelo menos 12 dígitos!", (val) => {
-      var re = /([(][0-9]{2}[)])\s[0-9]{4,5}\-[0-9]{3,4}/;
+    .min(13, "O número de telefone do guia deve ter pelo menos 10 dígitos!")
+    .test("valida-telefone", "O número de telefone deve estar no formato correto!", (val) => {
+      var re = /([(][0-9]{2}[)])\s([0-9]{8,9})/;
       return re.test(val);
     }),
   description: yup
@@ -97,12 +92,16 @@ const AdminGuia: React.FC = () => {
     api
       .get(`show/guia/${guia_id}`, config)
       .then((res) => {
+        const ddd = res.data.tel.slice(0, 2);
+        const tel = res.data.tel.slice(2);
+        const serializedTel = `(${ddd}) ${tel}`;
+        res.data.tel = serializedTel;
+
         setGuia(res.data);
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          localStorage.clear();
-          history.push("/Admin/login");
+          handleLogout();
         }
       });
   }, []);
@@ -134,8 +133,7 @@ const AdminGuia: React.FC = () => {
       })
       .catch((erro) => {
         if (erro.response.status === 401) {
-          localStorage.clear();
-          history.push("/Admin/login");
+          handleLogout();
         }
       });
   }
@@ -168,9 +166,19 @@ const AdminGuia: React.FC = () => {
           validationSchema={guiaSchema}
           onSubmit={(values, actions) => {
             const id = guia.id;
+            const serializedTel = values.tel
+              .replace(" ", "")
+              .replace("(", "")
+              .replace(")", "")
+              .replace("-", "")
+              .replace("_", "");
             setGuia(undefined);
             api
-              .put(`edit/guia/${id}`, values, config)
+              .put(
+                `edit/guia/${id}`,
+                { name: values.name, tel: serializedTel, description: values.description },
+                config
+              )
               .then((res) => {
                 if (res.status === 200) {
                   history.goBack();
@@ -178,8 +186,7 @@ const AdminGuia: React.FC = () => {
               })
               .catch((erro) => {
                 if (erro.response.status === 401) {
-                  localStorage.clear();
-                  history.push("/Admin/login");
+                  handleLogout();
                 }
               });
           }}
@@ -202,18 +209,11 @@ const AdminGuia: React.FC = () => {
 
                 <Campo style={{ marginRight: "5em" }}>
                   <Titulo>Telefone</Titulo>
-                  {/* <Input
-                    readOnly={deleting ? true : false}
-                    type="number"
-                    value={props.values.tel}
-                    onChange={props.handleChange("tel")}
-                    onBlur={props.handleBlur("tel")}
-                    maxLength={13}
-                  /> */}
-
                   <InputMask
+                    readOnly={deleting ? true : false}
                     style={InputTel}
-                    mask="(99) 99999-9999"
+                    mask="(99) 999999999"
+                    maskChar=""
                     value={props.values.tel}
                     onChange={props.handleChange("tel")}
                     onBlur={props.handleBlur("tel")}

@@ -17,7 +17,6 @@ import {
   Campo,
   Titulo,
   Input,
-  InputTel,
   Select,
   Option,
   FileiraDescricao,
@@ -215,6 +214,7 @@ const AdminCreatePacote: React.FC = () => {
                   onChange={props.handleChange("price")}
                   onBlur={props.handleBlur("price")}
                   maxLength={50}
+                  step="0.1"
                 />
                 <Erro>{props.touched.price && props.errors.price}</Erro>
               </Campo>

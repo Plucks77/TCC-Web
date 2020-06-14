@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
-
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-
 import { Formik } from "formik";
 import * as yup from "yup";
-
 import InputMask from "react-input-mask";
-
 import { useHistory } from "react-router-dom";
-
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 
@@ -42,9 +37,9 @@ const guiaSchema = yup.object({
   tel: yup
     .string()
     .required("O número de telefone do guia é necessário!")
-    .min(10, "O número de telefone do guia deve ter pelo menos 12 dígitos!")
+    .min(12, "O número de telefone do guia deve ter pelo menos 12 dígitos!")
     .test("valida-telefone", "O número de telefone deve ter pelo menos 12 dígitos!", (val) => {
-      var re = /([(][0-9]{2}[)])\s[0-9]{4,5}\-[0-9]{3,4}/;
+      var re = /([(][0-9]{2}[)])\s[0-9]{8,9}/;
       return re.test(val);
     }),
   description: yup
@@ -154,7 +149,8 @@ const AdminCreateGuia: React.FC = () => {
                   /> */}
                   <InputMask
                     style={InputTel}
-                    mask="(99) 99999-9999"
+                    mask="(99) 999999999"
+                    maskChar=" "
                     value={props.values.tel}
                     onChange={props.handleChange("tel")}
                     onBlur={props.handleBlur("tel")}

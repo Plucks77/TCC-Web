@@ -63,21 +63,23 @@ export const Titulo = styled.span`
 `;
 
 export const Input = styled.input`
+  box-sizing: border-box;
   width: 15em;
-  height: 30px;
+  height: 2em;
   border: 3px solid ${Admin.main};
   border-radius: 10px;
-  padding-left: 10px;
+  padding: 2px 2px 2px 10px;
   font-size: 20px;
   color: ${Admin.text};
 `;
 
 export const Select = styled.select`
+  box-sizing: border-box;
   width: 15em;
-  height: 30px;
+  height: 2em;
   border: 3px solid ${Admin.main};
   border-radius: 10px;
-  padding-left: 10px;
+  padding: 2px 2px 2px 10px;
   font-size: 20px;
   color: ${Admin.text};
   cursor: pointer;
@@ -92,16 +94,6 @@ export const Option = styled.option`
   font-size: 20px;
   color: ${Admin.text};
 `;
-
-export const InputTel = {
-  width: "15em",
-  height: "30px",
-  border: `3px solid ${Admin.main}`,
-  borderRadius: "10px",
-  paddingLeft: "10px",
-  fontSize: "20px",
-  color: `${Admin.text}`,
-};
 
 export const InputDescricao = styled.textarea`
   box-sizing: border-box;

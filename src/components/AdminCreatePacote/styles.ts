@@ -95,16 +95,6 @@ export const Option = styled.option`
   color: ${Admin.text};
 `;
 
-export const InputTel = {
-  width: "15em",
-  height: "30px",
-  border: `3px solid ${Admin.main}`,
-  borderRadius: "10px",
-  paddingLeft: "10px",
-  fontSize: "20px",
-  color: `${Admin.text}`,
-};
-
 export const InputDescricao = styled.textarea`
   box-sizing: border-box;
   width: 100%;
