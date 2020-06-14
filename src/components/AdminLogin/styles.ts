@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Admin } from "../utils/colors";
 
 export const Container = styled.div`
   display: flex;
@@ -6,7 +7,7 @@ export const Container = styled.div`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: white;
+  background: ${Admin.background};
 `;
 
 export const LoaderContainer = styled.div`
@@ -16,14 +17,14 @@ export const LoaderContainer = styled.div`
 export const Main = styled.div`
   display: flex;
   flex-direction: column;
-  background: white;
+  background: ${Admin.background};
 `;
 
 export const Titulo = styled.text`
   text-align: center;
   font-size: 32px;
   font-weight: bold;
-  color: #36453b;
+  color: ${Admin.text};
 `;
 
 export const Campo = styled.div`
@@ -35,7 +36,7 @@ export const Campo = styled.div`
 export const Label = styled.label`
   font-size: 18px;
   font-weight: 500;
-  color: #36453b;
+  color: ${Admin.text};
   margin-bottom: 3px;
   margin-left: 5px;
 `;
@@ -43,20 +44,20 @@ export const Label = styled.label`
 export const Input = styled.input`
   width: 350px;
   height: 30px;
-  border: 3px solid #818be7;
+  border: 3px solid ${Admin.main};
   border-radius: 10px;
   padding-left: 10px;
   font-size: 20px;
-  color: #36453b;
+  color: ${Admin.text};
 `;
 
 export const Botao = styled.button`
   width: 350px;
   height: 40px;
   border-radius: 10px;
-  background: #818be7;
-  border-color: #818be7;
-  color: #eeeeee;
+  background: ${Admin.main};
+  border-color: ${Admin.main};
+  color: ${Admin.background};
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
@@ -66,14 +67,14 @@ export const Botao = styled.button`
 `;
 
 export const Erro = styled.small`
-  color: crimson;
+  color: ${Admin.erro};
   font-size: 16px;
   align-self: center;
   margin-top: 1px;
 `;
 
 export const FormErro = styled.small`
-  color: crimson;
+  color: ${Admin.background};
   font-size: 20px;
   align-self: center;
   margin-top: 1px;

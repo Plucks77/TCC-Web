@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { Admin } from "../utils/colors";
 
 export const Container = styled.div`
   min-height: 100vh;
-  background: #eeeeee;
+  background: ${Admin.background};
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -11,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const Texto = styled.h1`
-  color: #36453b;
+  color: ${Admin.text};
   font-size: 25px;
   font-weight: 500;
 `;

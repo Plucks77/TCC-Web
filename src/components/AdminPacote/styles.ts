@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { Admin } from "../utils/colors";
 
 export const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
   min-height: 100vh;
-  background: #eeeeeeee;
+  background: ${Admin.background};
 `;
 
 export const Header = styled.div`
@@ -19,7 +20,7 @@ export const Icone = styled.div`
 `;
 
 export const Main = styled.form`
-  background: rgb(129, 139, 231, 0.3);
+  background: ${Admin.mainLight};
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -57,60 +58,60 @@ export const CampoDescricao = styled.div`
 
 export const Titulo = styled.span`
   font-size: 30px;
-  color: #36453b;
+  color: ${Admin.text};
   font-weight: 500;
 `;
 
 export const Input = styled.input`
   width: 15em;
   height: 30px;
-  border: 3px solid #818be7;
+  border: 3px solid ${Admin.main};
   border-radius: 10px;
   padding-left: 10px;
   font-size: 20px;
-  color: #36453b;
+  color: ${Admin.text};
 `;
 
 export const Select = styled.select`
   width: 15em;
   height: 30px;
-  border: 3px solid #818be7;
+  border: 3px solid ${Admin.main};
   border-radius: 10px;
   padding-left: 10px;
   font-size: 20px;
-  color: #36453b;
+  color: ${Admin.text};
   cursor: pointer;
 `;
 
 export const Option = styled.option`
   width: 15em;
   height: 30px;
-  border: 3px solid #818be7;
+  border: 3px solid ${Admin.main};
   border-radius: 10px;
   padding-left: 10px;
   font-size: 20px;
-  color: #36453b;
+  color: ${Admin.text};
 `;
 
 export const InputTel = {
   width: "15em",
   height: "30px",
-  border: "3px solid #818be7",
+  border: `3px solid ${Admin.main}`,
   borderRadius: "10px",
   paddingLeft: "10px",
   fontSize: "20px",
-  color: "#36453b",
+  color: `${Admin.text}`,
 };
 
 export const InputDescricao = styled.textarea`
   box-sizing: border-box;
   width: 100%;
   height: 10em;
-  border: 3px solid #818be7;
+  border: 3px solid ${Admin.main};
   border-radius: 10px;
   padding-left: 10px;
   font-size: 20px;
-  color: #36453b;
+  color: ${Admin.text};
 `;
 
 export const BotoesContainer = styled.div`
@@ -126,7 +127,7 @@ export const Botao = styled.button`
   height: 50px;
   border-radius: 20px;
   border-width: 0;
-  color: #eeeeeeee;
+  color: ${Admin.background};
   font-size: 25px;
   margin: 0 0 0 2em;
   cursor: pointer;
@@ -145,11 +146,11 @@ export const LoadingContainer = styled.div`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: white;
+  background: ${Admin.background};
 `;
 
 export const Erro = styled.small`
-  color: crimson;
+  color: ${Admin.erro};
   font-size: 16px;
   align-self: center;
   margin-top: 1px;

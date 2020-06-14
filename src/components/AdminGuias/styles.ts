@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import { Admin } from "../utils/colors";
 
 export const Container = styled.div`
   display: flex;
   flex: 1;
   min-height: 100vh;
-  background: #eeeeee;
+  background: ${Admin.background};
   flex-direction: column;
   align-items: center;
 `;
@@ -19,8 +20,8 @@ export const Header = styled.div`
 `;
 
 export const MenuSelecionado = styled.div`
-  background: #818be7;
-  color: #eeeeee;
+  background: ${Admin.main};
+  color: ${Admin.background};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,8 +33,8 @@ export const MenuSelecionado = styled.div`
 `;
 
 export const MenuNaoSelecionado = styled.div`
-  background: #eeeeeeee;
-  color: #36453b;
+  background: ${Admin.background};
+  color: ${Admin.text};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,7 +52,7 @@ export const Logout = styled.div`
 
 export const Tabela = styled.div`
   width: 90%;
-  background: rgb(129, 139, 231, 0.3);
+  background: ${Admin.mainLight};
   margin-top: 1em;
   margin-bottom: 2em;
   padding-bottom: 1em;
@@ -72,13 +73,13 @@ export const TabelaContainer = styled.div`
 
 export const TabelaTitulo = styled.text`
   font-size: 20px;
-  color: #36453b;
+  color: ${Admin.text};
   font-weight: 500;
   margin: 0 2em;
 `;
 
 export const PacoteContainer = styled.div`
-  background: #818be7;
+  background: ${Admin.main};
   width: 90%;
   height: 3em;
   border-radius: 10px;
@@ -92,7 +93,7 @@ export const PacoteContainer = styled.div`
 export const PacoteTexto = styled.div`
   margin: 0 2em;
   font-size: 20px;
-  color: #eeeeeeee;
+  color: ${Admin.background};
 `;
 
 export const SpinnerContainer = styled.div`
@@ -114,5 +115,5 @@ export const LoadingContainer = styled.div`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: white;
+  background: ${Admin.background};
 `;

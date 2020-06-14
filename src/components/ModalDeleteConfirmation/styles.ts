@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Admin } from "../utils/colors";
 
 export const Container = styled.div`
   display: flex;
@@ -8,8 +9,8 @@ export const Container = styled.div`
   align-items: center;
   width: 25em;
   height: 13em;
-  background: #eeeeee;
-  border: 3px solid #36453b;
+  background: ${Admin.background};
+  border: 3px solid ${Admin.text};
   border-radius: 10px;
 `;
 
@@ -24,10 +25,11 @@ export const Titulo = styled.h1`
   font-weight: 500;
   font-size: 30px;
   text-align: center;
-  color: #36453b;
+  color: ${Admin.text};
 `;
 
 export const Texto = styled.h4`
+  color: ${Admin.text};
   font-weight: normal;
   font-size: 16px;
 `;
@@ -44,7 +46,7 @@ export const Botao = styled.button`
   height: 30px;
   border-radius: 20px;
   border-width: 0;
-  color: #eeeeeeee;
+  color: ${Admin.background};
   font-size: 16px;
   margin: 0 0 0 2em;
   cursor: pointer;
