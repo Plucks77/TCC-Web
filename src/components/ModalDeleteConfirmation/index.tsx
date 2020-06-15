@@ -1,6 +1,16 @@
 import React from "react";
 
-import { Container, Titulo, LinhaBotoes, Botao, Texto, Header } from "./styles";
+import {
+  Container,
+  Titulo,
+  IconeContainer,
+  LinhaBotoes,
+  Botao,
+  Texto,
+  Header,
+  TextoContainer,
+} from "./styles";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 interface propsType {
   texto: string;
@@ -12,10 +22,15 @@ export const ModalDeleteConfirmation: React.FC<propsType> = (props: propsType) =
   return (
     <Container>
       <Header>
+        <IconeContainer>
+          <FaRegTrashAlt size={25} color="#eeeeee" />
+        </IconeContainer>
         <Titulo>Excluir</Titulo>
       </Header>
 
-      <Texto>{props.texto}</Texto>
+      <TextoContainer>
+        <Texto>{props.texto} </Texto>
+      </TextoContainer>
 
       <LinhaBotoes>
         <Botao onClick={props.close} style={{ backgroundColor: "#818be7" }}>

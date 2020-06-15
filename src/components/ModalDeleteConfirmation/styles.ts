@@ -17,15 +17,28 @@ export const Container = styled.div`
 export const Header = styled.div`
   display: flex;
   width: 100%;
+  height: 100%;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
   align-items: center;
   justify-content: center;
+  background: #e86868;
 `;
 
 export const Titulo = styled.h1`
   font-weight: 500;
   font-size: 30px;
-  text-align: center;
-  color: ${Admin.text};
+  color: ${Admin.background};
+`;
+
+export const IconeContainer = styled.div`
+  margin-right: 1em;
+`;
+
+export const TextoContainer = styled.div`
+  display: flex;
 `;
 
 export const Texto = styled.h4`
@@ -35,16 +48,16 @@ export const Texto = styled.h4`
 `;
 
 export const LinhaBotoes = styled.div`
-  margin-top: 1em;
+  margin: 1em 0;
   width: 100%;
   display: flex;
   justify-content: space-evenly;
 `;
 
 export const Botao = styled.button`
-  width: 100px;
-  height: 30px;
-  border-radius: 20px;
+  width: 7em;
+  height: 2em;
+  border-radius: 10px;
   border-width: 0;
   color: ${Admin.background};
   font-size: 16px;
