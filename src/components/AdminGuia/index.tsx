@@ -11,6 +11,7 @@ import Loader from "react-loader-spinner";
 import { ModalDeleteConfirmation as Modal } from "../ModalDeleteConfirmation";
 
 import api from "../../api";
+import { isLogged } from "../utils/helpers/Admin";
 import { Admin } from "../utils/colors";
 import {
   Container,
@@ -76,10 +77,7 @@ const AdminGuia: React.FC = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const admin_id = localStorage.getItem("admin_id");
-
-    if (token && admin_id) {
+    if (isLogged()) {
       setReady(true);
     } else {
       history.push("/Admin/login");

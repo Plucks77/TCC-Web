@@ -9,6 +9,7 @@ import Loader from "react-loader-spinner";
 import InputMask from "react-input-mask";
 
 import { ModalDeleteConfirmation as Modal } from "../ModalDeleteConfirmation";
+import { isLogged } from "../utils/helpers/Admin";
 import api from "../../api";
 import { Admin } from "../utils/colors";
 import {
@@ -84,10 +85,7 @@ const AdminPacote: React.FC = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const admin_id = localStorage.getItem("admin_id");
-
-    if (token && admin_id) {
+    if (isLogged()) {
       setReady(true);
     } else {
       handleLogout();

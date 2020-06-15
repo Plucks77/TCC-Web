@@ -9,6 +9,7 @@ import Loader from "react-loader-spinner";
 import InputMask from "react-input-mask";
 
 import api from "../../api";
+import { isLogged } from "../utils/helpers/Admin";
 import { Admin } from "../utils/colors";
 import {
   Container,
@@ -70,10 +71,7 @@ const AdminCreatePacote: React.FC = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const admin_id = localStorage.getItem("admin_id");
-
-    if (token && admin_id) {
+    if (isLogged()) {
       setReady(true);
     } else {
       handleLogout();
