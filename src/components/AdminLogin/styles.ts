@@ -51,6 +51,16 @@ export const Input = styled.input`
   color: ${Admin.text};
 `;
 
+export const InputContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const IconeContainer = styled.div`
+  margin-left: -2em;
+  cursor: pointer;
+`;
+
 export const Botao = styled.button`
   width: 350px;
   height: 40px;

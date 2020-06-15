@@ -4,6 +4,7 @@ import * as yup from "yup";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import { useHistory } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import api from "../../api";
 
@@ -18,6 +19,8 @@ import {
   Botao,
   Erro,
   FormErro,
+  InputContainer,
+  IconeContainer,
 } from "./styles";
 
 const loginSchema = yup.object({
@@ -38,6 +41,7 @@ const loginSchema = yup.object({
 const AdminLogin: React.FC = () => {
   const [erro, setErro] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showing, setShowing] = useState(false);
   const history = useHistory();
 
   return (
@@ -81,15 +85,29 @@ const AdminLogin: React.FC = () => {
                 />
                 <Erro>{props.touched.email && props.errors.email}</Erro>
               </Campo>
+
               <Campo>
                 <Label>Senha</Label>
-                <Input
-                  type="password"
-                  value={props.values.password}
-                  onChange={props.handleChange("password")}
-                  onBlur={props.handleBlur("password")}
-                  maxLength={50}
-                />
+                <InputContainer>
+                  <Input
+                    type={showing ? "text" : "password"}
+                    value={props.values.password}
+                    onChange={props.handleChange("password")}
+                    onBlur={props.handleBlur("password")}
+                    maxLength={50}
+                  />
+                  <IconeContainer
+                    onClick={() => {
+                      setShowing(!showing);
+                    }}
+                  >
+                    {showing ? (
+                      <FaEyeSlash size={25} color="#36453B" />
+                    ) : (
+                      <FaEye size={25} color="#36453B" />
+                    )}
+                  </IconeContainer>
+                </InputContainer>
                 <Erro>{props.touched.password && props.errors.password}</Erro>
               </Campo>
 
