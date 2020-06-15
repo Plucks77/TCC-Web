@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
-
-import api from "../../api";
-
 import { FiLogOut } from "react-icons/fi";
 import { FaPlus } from "react-icons/fa";
+
+import api from "../../api";
 import {
   Container,
   SpinnerContainer,
@@ -33,6 +31,7 @@ interface guia {
 const AdminGuias: React.FC = () => {
   const [guias, setGuias] = useState<guia[]>([]);
   const [ready, setReady] = useState(false);
+
   const history = useHistory();
 
   let config = {

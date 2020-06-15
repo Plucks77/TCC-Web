@@ -48,7 +48,7 @@ const guiaSchema = yup.object({
     }),
   description: yup
     .string()
-    .required("A descrição do guia é necessário!")
+    .required("A descrição do guia é necessária!")
     .min(5, "A descrição do guia deve ter pelo menos 5 dígitos!"),
 });
 

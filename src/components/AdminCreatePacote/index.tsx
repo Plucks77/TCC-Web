@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
+import InputMask from "react-input-mask";
 
 import api from "../../api";
 import {
@@ -17,6 +18,7 @@ import {
   Campo,
   Titulo,
   Input,
+  InputPrice,
   Select,
   Option,
   FileiraDescricao,
@@ -39,19 +41,10 @@ const pacoteSchema = yup.object({
     .string()
     .required("A descrição do pacote é necessária!")
     .min(5, "A descrição do pacote deve ter pelo menos 5 dígitos!"),
-  price: yup.number().required("É necessário definir um preço para o pacote!"),
+  price: yup.string().required("É necessário definir um preço para o pacote!"),
   guia_id: yup.number().min(1, "É preciso definir um guia para este pacote!"),
   category_id: yup.number().min(1, "É preciso definir uma categoria para este pacote!"),
 });
-
-interface pacote {
-  id: number;
-  category_id: number;
-  guia_id: number;
-  name: string;
-  description: string;
-  price: string;
-}
 
 interface guia {
   id: number;
@@ -64,7 +57,6 @@ interface category {
 }
 
 const AdminCreatePacote: React.FC = () => {
-  const [pacote, setPacote] = useState<pacote>();
   const [guias, setGuias] = useState<guia[]>([]);
   const [categories, setCategories] = useState<category[]>([]);
   const [ready, setReady] = useState(false);
@@ -143,11 +135,14 @@ const AdminCreatePacote: React.FC = () => {
           guia_id: "0",
           name: "",
           description: "",
-          price: "",
+          price: "R$ ",
           date: "0",
         }}
         validationSchema={pacoteSchema}
         onSubmit={(values, actions) => {
+          const serializedPrice = values.price.replace("R$ ", "");
+          values.price = serializedPrice;
+
           api
             .post("pacote/create", values, config)
             .then((res) => {
@@ -208,13 +203,21 @@ const AdminCreatePacote: React.FC = () => {
 
               <Campo style={{ marginRight: "5em" }}>
                 <Titulo>Valor</Titulo>
-                <Input
+                {/* <Input
                   type="number"
                   value={props.values.price}
                   onChange={props.handleChange("price")}
                   onBlur={props.handleBlur("price")}
                   maxLength={50}
                   step="0.1"
+                /> */}
+                <InputMask
+                  style={InputPrice}
+                  mask="R$ 999999999"
+                  maskChar=""
+                  value={props.values.price}
+                  onChange={props.handleChange("price")}
+                  onBlur={props.handleBlur("price")}
                 />
                 <Erro>{props.touched.price && props.errors.price}</Erro>
               </Campo>

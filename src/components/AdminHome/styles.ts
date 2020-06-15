@@ -71,7 +71,7 @@ export const TabelaContainer = styled.div`
 `;
 
 export const TabelaTitulo = styled.text`
-  font-size: 20px;
+  font-size: 24px;
   color: ${Admin.text};
   font-weight: 500;
   margin: 0 2em;
@@ -98,10 +98,8 @@ export const PacoteTexto = styled.div`
 export const SpinnerContainer = styled.div`
   display: flex;
   flex: 1;
-  height: 100vh;
   justify-content: center;
   align-items: center;
-  background: ${Admin.background};
 `;
 
 export const Circulo = styled.div`
@@ -116,4 +114,5 @@ export const LoadingContainer = styled.div`
   height: 100vh;
   justify-content: center;
   align-items: center;
+  background: ${Admin.background};
 `;

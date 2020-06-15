@@ -3,7 +3,6 @@ import { Admin } from "../utils/colors";
 
 export const Container = styled.div`
   display: flex;
-  flex: 1;
   min-height: 100vh;
   background: ${Admin.background};
   flex-direction: column;
@@ -72,7 +71,7 @@ export const TabelaContainer = styled.div`
 `;
 
 export const TabelaTitulo = styled.text`
-  font-size: 20px;
+  font-size: 24px;
   color: ${Admin.text};
   font-weight: 500;
   margin: 0 2em;

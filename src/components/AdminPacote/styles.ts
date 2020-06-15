@@ -12,7 +12,7 @@ export const Container = styled.div`
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 2em 2em;
+  margin: 1em 2em;
 `;
 
 export const Icone = styled.div`
@@ -25,7 +25,7 @@ export const Main = styled.form`
   flex: 1;
   flex-direction: column;
   min-width: 700px;
-  margin: 1em 5em;
+  margin: 0 5em 1em 5em;
   border-radius: 20px;
 `;
 
@@ -72,6 +72,17 @@ export const Input = styled.input`
   font-size: 20px;
   color: ${Admin.text};
 `;
+
+export const InputPrice = {
+  boxSizing: "border-box" as "border-box", //casting do boxSizing que por algum caralho de motivo precisa ser feito?!?
+  width: "15em",
+  height: "2em",
+  border: `3px solid ${Admin.main}`,
+  borderRadius: "10px",
+  padding: "2px 2px 2px 10px",
+  fontSize: "20px",
+  color: `${Admin.text}`,
+};
 
 export const Select = styled.select`
   box-sizing: border-box;

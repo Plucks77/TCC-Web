@@ -6,9 +6,9 @@ import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
+import InputMask from "react-input-mask";
 
 import { ModalDeleteConfirmation as Modal } from "../ModalDeleteConfirmation";
-
 import api from "../../api";
 import {
   Container,
@@ -19,6 +19,7 @@ import {
   Campo,
   Titulo,
   Input,
+  InputPrice,
   Select,
   Option,
   FileiraDescricao,
@@ -41,7 +42,7 @@ const pacoteSchema = yup.object({
     .string()
     .required("A descrição do pacote é necessária!")
     .min(5, "A descrição do pacote deve ter pelo menos 5 dígitos!"),
-  price: yup.number().required("É necessário definir um preço para o pacote!"),
+  price: yup.string().required("É necessário definir um preço para o pacote!"),
 });
 
 interface pacote {
@@ -98,6 +99,7 @@ const AdminPacote: React.FC = () => {
     api
       .get(`pacote/${pacote_id}`, config)
       .then((res) => {
+        res.data.price = `R$ ${res.data.price}`;
         setPacote(res.data);
       })
       .catch((err) => {
@@ -201,6 +203,8 @@ const AdminPacote: React.FC = () => {
           }}
           validationSchema={pacoteSchema}
           onSubmit={(values, actions) => {
+            const serializedPrice = values.price.replace("R$ ", "");
+            values.price = serializedPrice;
             api
               .put(`pacote/edit/${pacote.id}`, values, config)
               .then((res) => {
@@ -260,7 +264,7 @@ const AdminPacote: React.FC = () => {
 
                 <Campo style={{ marginRight: "5em" }}>
                   <Titulo>Valor</Titulo>
-                  <Input
+                  {/* <Input
                     readOnly={deleting ? true : false}
                     type="number"
                     value={props.values.price}
@@ -268,6 +272,14 @@ const AdminPacote: React.FC = () => {
                     onBlur={props.handleBlur("price")}
                     maxLength={50}
                     step="0.1"
+                  /> */}
+                  <InputMask
+                    style={InputPrice}
+                    mask="R$ 999999999"
+                    maskChar=""
+                    value={props.values.price}
+                    onChange={props.handleChange("price")}
+                    onBlur={props.handleBlur("price")}
                   />
                   <Erro>{props.touched.price && props.errors.price}</Erro>
                 </Campo>

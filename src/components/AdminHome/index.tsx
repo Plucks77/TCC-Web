@@ -5,6 +5,7 @@ import Loader from "react-loader-spinner";
 import { FiLogOut } from "react-icons/fi";
 import { FaPlus } from "react-icons/fa";
 
+import api from "../../api";
 import {
   Container,
   SpinnerContainer,
@@ -20,7 +21,6 @@ import {
   Circulo,
   LoadingContainer,
 } from "./styles";
-import api from "../../api";
 
 interface pacote {
   id: number;
@@ -118,16 +118,16 @@ const AdminHome: React.FC = () => {
             ))}
           </>
         ) : (
-          <LoadingContainer>
+          <SpinnerContainer>
             <Loader type="ThreeDots" color="#818be7" height={100} width={100} />
-          </LoadingContainer>
+          </SpinnerContainer>
         )}
       </Tabela>
     </Container>
   ) : (
-    <SpinnerContainer>
+    <LoadingContainer>
       <Loader type="ThreeDots" color="#818be7" height={100} width={100} />
-    </SpinnerContainer>
+    </LoadingContainer>
   );
 };
 

@@ -12,7 +12,7 @@ export const Container = styled.div`
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 2em 2em;
+  margin: 1em 2em;
 `;
 
 export const Icone = styled.div`
@@ -25,7 +25,7 @@ export const Main = styled.form`
   flex: 1;
   flex-direction: column;
   min-width: 700px;
-  margin: 1em 5em;
+  margin: 0 5em 1em 5em;
   border-radius: 20px;
 `;
 
