@@ -12,7 +12,7 @@ export const ModalDeleteConfirmation: React.FC<propsType> = (props: propsType) =
   return (
     <Container>
       <Header>
-        <Titulo> Deletar</Titulo>
+        <Titulo>Excluir</Titulo>
       </Header>
 
       <Texto>{props.texto}</Texto>
