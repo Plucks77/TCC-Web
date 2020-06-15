@@ -11,7 +11,7 @@ import Loader from "react-loader-spinner";
 import { ModalDeleteConfirmation as Modal } from "../ModalDeleteConfirmation";
 
 import api from "../../api";
-
+import { Admin } from "../utils/colors";
 import {
   Container,
   SpinnerContainer,
@@ -142,11 +142,11 @@ const AdminGuia: React.FC = () => {
     <Container>
       <Header style={deleting ? { opacity: 0.5 } : {}}>
         <Icone onClick={() => handleNavigateBack()}>
-          <FaLongArrowAltLeft color="#36453B" size={60} />
+          <FaLongArrowAltLeft color={Admin.text} size={60} />
         </Icone>
 
         <Icone onClick={() => handleLogout()}>
-          <FiLogOut color="#36453B" size={60} />
+          <FiLogOut color={Admin.text} size={60} />
         </Icone>
       </Header>
 
@@ -237,13 +237,13 @@ const AdminGuia: React.FC = () => {
               </FileiraDescricao>
 
               <BotoesContainer>
-                <Botao type="submit" style={{ background: "#818BE7" }}>
+                <Botao type="submit" style={{ background: `${Admin.main}` }}>
                   Salvar
                 </Botao>
                 <Botao
                   onClick={() => handleOpenDelete()}
                   type="button"
-                  style={{ background: "#E86868" }}
+                  style={{ background: `${Admin.danger}` }}
                 >
                   Excluir
                 </Botao>
@@ -254,14 +254,14 @@ const AdminGuia: React.FC = () => {
       ) : (
         <Main>
           <SpinnerContainer>
-            <Loader type="ThreeDots" color="#818be7" height={100} width={100} />
+            <Loader type="ThreeDots" color={Admin.main} height={100} width={100} />
           </SpinnerContainer>
         </Main>
       )}
     </Container>
   ) : (
     <LoadingContainer>
-      <Loader type="ThreeDots" color="#818be7" height={100} width={100} />
+      <Loader type="ThreeDots" color={Admin.main} height={100} width={100} />
     </LoadingContainer>
   );
 };

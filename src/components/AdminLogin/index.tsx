@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import api from "../../api";
-
+import { Admin } from "../utils/colors";
 import {
   Container,
   LoaderContainer,
@@ -102,9 +102,9 @@ const AdminLogin: React.FC = () => {
                     }}
                   >
                     {showing ? (
-                      <FaEyeSlash size={25} color="#36453B" />
+                      <FaEyeSlash size={25} color={Admin.text} />
                     ) : (
-                      <FaEye size={25} color="#36453B" />
+                      <FaEye size={25} color={Admin.text} />
                     )}
                   </IconeContainer>
                 </InputContainer>
@@ -114,7 +114,7 @@ const AdminLogin: React.FC = () => {
               {erro && <FormErro>{erro}</FormErro>}
               {loading ? (
                 <LoaderContainer>
-                  <Loader type="ThreeDots" color="#818be7" height={100} width={100} />
+                  <Loader type="ThreeDots" color={Admin.main} height={100} width={100} />
                 </LoaderContainer>
               ) : (
                 <Botao onClick={props.submitForm} type="button">

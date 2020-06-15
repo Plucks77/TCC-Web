@@ -9,6 +9,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 
 import api from "../../api";
+import { Admin } from "../utils/colors";
 import {
   Container,
   SpinnerContainer,
@@ -83,11 +84,11 @@ const AdminCreateGuia: React.FC = () => {
     <Container>
       <Header>
         <Icone onClick={() => handleNavigateBack()}>
-          <FaLongArrowAltLeft color="#36453B" size={60} />
+          <FaLongArrowAltLeft color={Admin.text} size={60} />
         </Icone>
 
         <Icone onClick={() => handleLogout()}>
-          <FiLogOut color="#36453B" size={60} />
+          <FiLogOut color={Admin.text} size={60} />
         </Icone>
       </Header>
 
@@ -173,7 +174,7 @@ const AdminCreateGuia: React.FC = () => {
               </FileiraDescricao>
 
               <BotoesContainer>
-                <Botao type="submit" style={{ background: "#818BE7" }}>
+                <Botao type="submit" style={{ background: `${Admin.main}` }}>
                   Criar
                 </Botao>
               </BotoesContainer>
@@ -183,14 +184,14 @@ const AdminCreateGuia: React.FC = () => {
       ) : (
         <Main>
           <SpinnerContainer>
-            <Loader type="ThreeDots" color="#818be7" height={100} width={100} />
+            <Loader type="ThreeDots" color={Admin.main} height={100} width={100} />
           </SpinnerContainer>
         </Main>
       )}
     </Container>
   ) : (
     <LoadingContainer>
-      <Loader type="ThreeDots" color="#818be7" height={100} width={100} />
+      <Loader type="ThreeDots" color={Admin.main} height={100} width={100} />
     </LoadingContainer>
   );
 };

@@ -1,5 +1,7 @@
 import React from "react";
+import { FaRegTrashAlt } from "react-icons/fa";
 
+import { Admin } from "../utils/colors";
 import {
   Container,
   Titulo,
@@ -10,7 +12,6 @@ import {
   Header,
   TextoContainer,
 } from "./styles";
-import { FaRegTrashAlt } from "react-icons/fa";
 
 interface propsType {
   texto: string;
@@ -23,7 +24,7 @@ export const ModalDeleteConfirmation: React.FC<propsType> = (props: propsType) =
     <Container>
       <Header>
         <IconeContainer>
-          <FaRegTrashAlt size={25} color="#eeeeee" />
+          <FaRegTrashAlt size={25} color={Admin.background} />
         </IconeContainer>
         <Titulo>Excluir</Titulo>
       </Header>
@@ -33,10 +34,10 @@ export const ModalDeleteConfirmation: React.FC<propsType> = (props: propsType) =
       </TextoContainer>
 
       <LinhaBotoes>
-        <Botao onClick={props.close} style={{ backgroundColor: "#818be7" }}>
+        <Botao onClick={props.close} style={{ backgroundColor: `${Admin.main}` }}>
           Não
         </Botao>
-        <Botao onClick={props.delete} style={{ backgroundColor: "#E86868" }}>
+        <Botao onClick={props.delete} style={{ backgroundColor: `${Admin.danger}` }}>
           Sim
         </Botao>
       </LinhaBotoes>

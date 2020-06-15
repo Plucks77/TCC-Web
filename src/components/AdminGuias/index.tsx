@@ -6,6 +6,7 @@ import { FiLogOut } from "react-icons/fi";
 import { FaPlus } from "react-icons/fa";
 
 import api from "../../api";
+import { Admin } from "../utils/colors";
 import {
   Container,
   SpinnerContainer,
@@ -82,7 +83,7 @@ const AdminGuias: React.FC = () => {
         <MenuSelecionado onClick={() => {}}>Guias</MenuSelecionado>
         <div style={{ flex: 5 }}></div>
         <Logout onClick={() => {}}>
-          <FiLogOut color="#36453B" size={60} />
+          <FiLogOut color={Admin.text} size={60} />
         </Logout>
       </Header>
       <Tabela>
@@ -92,7 +93,7 @@ const AdminGuias: React.FC = () => {
               <FaPlus
                 style={{ cursor: "pointer" }}
                 onClick={() => handleNavigateCreateGuia()}
-                color="36453B"
+                color={Admin.text}
                 size={60}
               />
             </Circulo>
@@ -110,14 +111,14 @@ const AdminGuias: React.FC = () => {
           </>
         ) : (
           <SpinnerContainer>
-            <Loader type="ThreeDots" color="#818be7" height={100} width={100} />
+            <Loader type="ThreeDots" color={Admin.main} height={100} width={100} />
           </SpinnerContainer>
         )}
       </Tabela>
     </Container>
   ) : (
     <LoadingContainer>
-      <Loader type="ThreeDots" color="#818be7" height={100} width={100} />
+      <Loader type="ThreeDots" color={Admin.main} height={100} width={100} />
     </LoadingContainer>
   );
 };
