@@ -155,7 +155,18 @@ const AdminPacote: React.FC = () => {
   }
 
   function handleDelete() {
-    console.log("DELETADO");
+    api
+      .delete(`pacote/delete/${pacote?.id}`, config)
+      .then((res) => {
+        if (res.status === 200) {
+          handleNavigateBack();
+        }
+      })
+      .catch((erro) => {
+        if (erro.response.status === 401) {
+          handleLogout();
+        }
+      });
   }
   return ready ? (
     <Container>
@@ -172,7 +183,7 @@ const AdminPacote: React.FC = () => {
       {deleting && (
         <ModalContainer>
           <Modal
-            texto={`Deseja realmente excluir o guia ${pacote?.name} ?`}
+            texto={`Deseja realmente excluir o pacote ${pacote?.name} ?`}
             delete={() => handleDelete()}
             close={() => handleCloseModal()}
           />

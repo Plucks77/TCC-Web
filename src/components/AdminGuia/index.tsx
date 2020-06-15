@@ -128,7 +128,7 @@ const AdminGuia: React.FC = () => {
       .delete(`delete/guia/${guia?.id}`, config)
       .then((res) => {
         if (res.status === 200) {
-          history.goBack();
+          handleNavigateBack();
         }
       })
       .catch((erro) => {
