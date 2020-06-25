@@ -12,8 +12,7 @@ import {
   Container,
   SpinnerContainer,
   Header,
-  MenuSelecionado,
-  MenuNaoSelecionado,
+  Menu,
   Logout,
   Tabela,
   TabelaContainer,
@@ -63,7 +62,7 @@ const AdminGuias: React.FC = () => {
       });
   }, []);
 
-  function handleNavitatePacotes() {
+  function handleNavigatePacotes() {
     history.push("/Admin");
   }
 
@@ -78,8 +77,10 @@ const AdminGuias: React.FC = () => {
   return ready ? (
     <Container>
       <Header>
-        <MenuNaoSelecionado onClick={() => handleNavitatePacotes()}>Pacotes</MenuNaoSelecionado>
-        <MenuSelecionado onClick={() => {}}>Guias</MenuSelecionado>
+        <Menu selected={false} onClick={() => handleNavigatePacotes()}>
+          Pacotes
+        </Menu>
+        <Menu selected={true}>Guias</Menu>
         <div style={{ flex: 5 }}></div>
         <Logout onClick={() => {}}>
           <FiLogOut color={Admin.text} size={60} />

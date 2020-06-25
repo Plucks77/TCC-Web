@@ -12,8 +12,7 @@ import {
   Container,
   SpinnerContainer,
   Header,
-  MenuSelecionado,
-  MenuNaoSelecionado,
+  Menu,
   Logout,
   Tabela,
   TabelaContainer,
@@ -85,8 +84,10 @@ const AdminHome: React.FC = () => {
   return ready ? (
     <Container>
       <Header>
-        <MenuSelecionado>Pacotes</MenuSelecionado>
-        <MenuNaoSelecionado onClick={() => handleNavigateGuias()}>Guias</MenuNaoSelecionado>
+        <Menu selected={true}>Pacotes</Menu>
+        <Menu selected={false} onClick={() => handleNavigateGuias()}>
+          Guias
+        </Menu>
         <div style={{ flex: 5 }}></div>
         <Logout onClick={() => handleLogout()}>
           <FiLogOut color={Admin.text} size={60} />

@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { Admin } from "../utils/colors";
 
+interface Props {
+  selected: boolean;
+}
+
 export const Container = styled.div`
   display: flex;
   min-height: 100vh;
@@ -18,9 +22,10 @@ export const Header = styled.div`
   margin-top: 2em;
 `;
 
-export const MenuSelecionado = styled.div`
-  background: ${Admin.main};
-  color: ${Admin.background};
+export const Menu = styled.div`
+  background: ${(p: Props) => (p.selected ? Admin.main : Admin.background)};
+  color: ${(p: Props) => (p.selected ? Admin.background : Admin.text)};
+  cursor: ${(p: Props) => (p.selected ? "normal" : "pointer")};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,20 +34,6 @@ export const MenuSelecionado = styled.div`
   border-radius: 10px;
   font-size: 30px;
   margin: 0 2em;
-`;
-
-export const MenuNaoSelecionado = styled.div`
-  background: ${Admin.background};
-  color: ${Admin.text};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  height: 80px;
-  border-radius: 10px;
-  font-size: 30px;
-  margin: 0 2em;
-  cursor: pointer;
 `;
 
 export const Logout = styled.div`
