@@ -105,7 +105,7 @@ const AdminCreateGuia: React.FC = () => {
             setIsSubmitting(true);
             api
               .post(
-                "register/guia",
+                "guia/register",
                 { name: values.name, tel: serializedTel, description: values.description },
                 config
               )

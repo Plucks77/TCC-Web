@@ -51,7 +51,7 @@ const AdminGuias: React.FC = () => {
 
   useEffect(() => {
     api
-      .get<guia[]>("list/guias", config)
+      .get<guia[]>("guia/list", config)
       .then((res) => {
         setGuias(res.data);
       })

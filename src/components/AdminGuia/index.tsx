@@ -88,7 +88,7 @@ const AdminGuia: React.FC = () => {
     const history_guia_id = history.location.state;
     const { guia_id } = history_guia_id as historyGuiaId;
     api
-      .get(`show/guia/${guia_id}`, config)
+      .get(`guia/${guia_id}`, config)
       .then((res) => {
         const ddd = res.data.tel.slice(0, 2);
         const tel = res.data.tel.slice(2);
