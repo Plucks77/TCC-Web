@@ -13,7 +13,6 @@ import { isLogged } from "../utils/helpers/Admin";
 import { Admin } from "../utils/colors";
 import {
   Container,
-  SpinnerContainer,
   Header,
   Icone,
   FileiraCampos,
@@ -31,7 +30,6 @@ import {
   Botao,
   LoadingContainer,
   Erro,
-  ModalContainer,
 } from "./styles";
 
 const pacoteSchema = yup.object({
@@ -46,6 +44,8 @@ const pacoteSchema = yup.object({
   price: yup.string().required("É necessário definir um preço para o pacote!"),
   guia_id: yup.number().min(1, "É preciso definir um guia para este pacote!"),
   category_id: yup.number().min(1, "É preciso definir uma categoria para este pacote!"),
+  local_id: yup.number().min(1, "É preciso definir um local para este pacote!"),
+  city_id: yup.number().min(1, "É preciso definir uma cidade para este pacote!"),
 });
 
 interface guia {
@@ -58,9 +58,21 @@ interface category {
   name: string;
 }
 
+interface city {
+  id: number;
+  name: string;
+}
+
+interface local {
+  id: number;
+  name: string;
+}
+
 const AdminCreatePacote: React.FC = () => {
   const [guias, setGuias] = useState<guia[]>([]);
   const [categories, setCategories] = useState<category[]>([]);
+  const [cities, setCities] = useState<city[]>([]);
+  const [locals, setLocals] = useState<local[]>([]);
   const [ready, setReady] = useState(false);
 
   const history = useHistory();
@@ -80,7 +92,7 @@ const AdminCreatePacote: React.FC = () => {
 
   useEffect(() => {
     api
-      .get("list/guias", config)
+      .get("guia/list", config)
       .then((res) => {
         if (res.status === 200) {
           setGuias(res.data);
@@ -95,7 +107,7 @@ const AdminCreatePacote: React.FC = () => {
 
   useEffect(() => {
     api
-      .get("list/category", config)
+      .get("category/list", config)
       .then((res) => {
         if (res.status === 200) {
           setCategories(res.data);
@@ -107,6 +119,38 @@ const AdminCreatePacote: React.FC = () => {
         }
       });
   }, []);
+
+  useEffect(() => {
+    api
+      .get("cities", config)
+      .then((res) => {
+        if (res.status === 200) {
+          setCities(res.data);
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          handleLogout();
+        }
+      });
+  }, []);
+
+  function handleChangeCity(city_id: number) {
+    if (city_id > 0) {
+      api
+        .get(`local/city/${city_id}`, config)
+        .then((res) => {
+          if (res.status === 200) {
+            setLocals(res.data);
+          }
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            handleLogout();
+          }
+        });
+    }
+  }
 
   function handleNavigateBack() {
     history.goBack();
@@ -132,16 +176,18 @@ const AdminCreatePacote: React.FC = () => {
         initialValues={{
           category_id: "0",
           guia_id: "0",
+          city_id: "0",
+          local_id: "0",
           name: "",
           description: "",
           price: "R$ ",
           date: "0",
+          image_url: "a",
         }}
         validationSchema={pacoteSchema}
         onSubmit={(values, actions) => {
           const serializedPrice = values.price.replace("R$ ", "");
           values.price = serializedPrice;
-
           api
             .post("pacote/create", values, config)
             .then((res) => {
@@ -150,6 +196,7 @@ const AdminCreatePacote: React.FC = () => {
               }
             })
             .catch((erro) => {
+              console.log(erro.message);
               if (erro.response.status === 401) {
                 console.log(erro.response);
                 handleLogout();
@@ -202,14 +249,6 @@ const AdminCreatePacote: React.FC = () => {
 
               <Campo style={{ marginRight: "5em" }}>
                 <Titulo>Valor</Titulo>
-                {/* <Input
-                  type="number"
-                  value={props.values.price}
-                  onChange={props.handleChange("price")}
-                  onBlur={props.handleBlur("price")}
-                  maxLength={50}
-                  step="0.1"
-                /> */}
                 <InputMask
                   style={InputPrice}
                   mask="R$ 999999999"
@@ -219,6 +258,39 @@ const AdminCreatePacote: React.FC = () => {
                   onBlur={props.handleBlur("price")}
                 />
                 <Erro>{props.touched.price && props.errors.price}</Erro>
+              </Campo>
+            </FileiraCampos>
+
+            <FileiraCampos>
+              <Campo style={{ marginLeft: "5em" }}>
+                <Titulo>Cidade</Titulo>
+                <Select
+                  onChange={(e) => {
+                    props.handleChange("city_id")(e);
+                    handleChangeCity(Number(e.target.value));
+                  }}
+                >
+                  <Option value="0">Selecione uma cidade</Option>
+                  {cities.map((city) => (
+                    <Option key={city.id} value={city.id}>
+                      {city.name}
+                    </Option>
+                  ))}
+                </Select>
+                <Erro>{props.touched.city_id && props.errors.city_id}</Erro>
+              </Campo>
+
+              <Campo style={{ marginRight: "5em" }}>
+                <Titulo>Local</Titulo>
+                <Select onChange={props.handleChange("local_id")}>
+                  <Option value="0">Selecione um local</Option>
+                  {locals.map((local) => (
+                    <Option key={local.id} value={local.id}>
+                      {local.name}
+                    </Option>
+                  ))}
+                </Select>
+                <Erro>{props.touched.local_id && props.errors.local_id}</Erro>
               </Campo>
             </FileiraCampos>
 
