@@ -61,7 +61,7 @@ export const TabelaContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const TabelaTitulo = styled.text`
+export const TabelaTitulo = styled.h1`
   font-size: 24px;
   color: ${Admin.text};
   font-weight: 500;
