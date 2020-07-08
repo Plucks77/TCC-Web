@@ -182,7 +182,7 @@ const AdminCreatePacote: React.FC = () => {
           description: "",
           price: "R$ ",
           date: "0",
-          image_url: "a",
+          image_url: "https://images-valetour.s3-sa-east-1.amazonaws.com/Pacotes/pacote1.jpg",
         }}
         validationSchema={pacoteSchema}
         onSubmit={(values, actions) => {
