@@ -174,7 +174,7 @@ const AdminPacote: React.FC = () => {
   useEffect(() => {
     if (pacote) {
       api
-        .get(`local/city/${pacote?.local_id}`, config)
+        .get(`local/city/${pacote?.city_id}`, config)
         .then((res) => {
           setLocals(res.data);
         })
@@ -187,7 +187,7 @@ const AdminPacote: React.FC = () => {
   }, [pacote]);
 
   function handleChangeCity(city_id: number) {
-    if (city_id > 0 && city_id !== pacote?.city_id) {
+    if (city_id > 0) {
       api
         .get(`local/city/${city_id}`, config)
         .then((res) => {
