@@ -4,9 +4,22 @@ import * as yup from "yup";
 import { useParams } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
+import { Admin } from "../utils/colors";
 import api from "../../api";
-import { Container, Campos, Titulo, DivCampo, Input, Label, Botao, Erro } from "./styles";
+import {
+  Container,
+  Campos,
+  Titulo,
+  DivCampo,
+  Input,
+  InputContainer,
+  IconeContainer,
+  Label,
+  Botao,
+  Erro,
+} from "./styles";
 
 const changeSchema = yup.object({
   senha: yup
@@ -32,22 +45,19 @@ const ForgotPassword: React.FC = () => {
   const [isChanged, setIsChanged] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const [showing, setShowing] = useState(false);
   let { token, id } = useParams();
 
   useEffect(() => {
-    async function execute() {
-      await api
-        .post("/validate", { token, id })
-        .then((response) => {
-          // console.log(response);
-          setReady(true);
-        })
-        .catch(() => {
-          setReady(true);
-          setInvalid(true);
-        });
-    }
-    execute();
+    api
+      .post("/validate", { token, id })
+      .then((response) => {
+        setReady(true);
+      })
+      .catch(() => {
+        setReady(true);
+        setInvalid(true);
+      });
   }, []);
 
   async function handleEnviar(values: IValue) {
@@ -76,25 +86,51 @@ const ForgotPassword: React.FC = () => {
 
                 <DivCampo>
                   <Label>Digite uma nova senha</Label>
-                  <Input
-                    type="password"
-                    value={props.values.senha}
-                    onChange={props.handleChange("senha")}
-                    onBlur={props.handleBlur("senha")}
-                    maxLength={50}
-                  />
+                  <InputContainer>
+                    <Input
+                      type={showing ? "text" : "password"}
+                      value={props.values.senha}
+                      onChange={props.handleChange("senha")}
+                      onBlur={props.handleBlur("senha")}
+                      maxLength={50}
+                    />
+                    <IconeContainer
+                      onClick={() => {
+                        setShowing(!showing);
+                      }}
+                    >
+                      {showing ? (
+                        <FaEyeSlash size={25} color={Admin.text} />
+                      ) : (
+                        <FaEye size={25} color={Admin.text} />
+                      )}
+                    </IconeContainer>
+                  </InputContainer>
                   <Erro>{props.touched.senha && props.errors.senha}</Erro>
                 </DivCampo>
 
                 <DivCampo>
                   <Label>Confirme sua senha</Label>
-                  <Input
-                    type="password"
-                    value={props.values.confirmaSenha}
-                    onChange={props.handleChange("confirmaSenha")}
-                    onBlur={props.handleBlur("confirmaSenha")}
-                    maxLength={50}
-                  />
+                  <InputContainer>
+                    <Input
+                      type={showing ? "text" : "password"}
+                      value={props.values.confirmaSenha}
+                      onChange={props.handleChange("confirmaSenha")}
+                      onBlur={props.handleBlur("confirmaSenha")}
+                      maxLength={50}
+                    />
+                    <IconeContainer
+                      onClick={() => {
+                        setShowing(!showing);
+                      }}
+                    >
+                      {showing ? (
+                        <FaEyeSlash size={25} color={Admin.text} />
+                      ) : (
+                        <FaEye size={25} color={Admin.text} />
+                      )}
+                    </IconeContainer>
+                  </InputContainer>
                   <Erro>{props.touched.confirmaSenha && props.errors.confirmaSenha}</Erro>
                 </DivCampo>
                 {!isSending ? (

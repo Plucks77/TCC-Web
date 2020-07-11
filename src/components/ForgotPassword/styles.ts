@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Admin } from "../utils/colors";
 
 export const Container = styled.div`
   display: flex;
@@ -6,22 +7,19 @@ export const Container = styled.div`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  /* background: yellow; */
+  background: ${Admin.background};
 `;
 
 export const Campos = styled.div`
-  /* width: 100px;
-  height: 100px; */
-  /* background: red; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
-export const Titulo = styled.text`
-  font-size: 60px;
-  color: #36453b;
+export const Titulo = styled.h1`
+  font-size: 32px;
+  color: ${Admin.text};
   text-align: center;
 `;
 
@@ -34,9 +32,15 @@ export const DivCampo = styled.div`
 `;
 
 export const Label = styled.label`
-  font-size: 30px;
-  color: #36453b;
+  font-size: 24px;
+  color: ${Admin.text};
   margin-bottom: 10px;
+`;
+
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const Input = styled.input`
@@ -46,23 +50,28 @@ export const Input = styled.input`
   border-radius: 10px;
   padding-left: 5px;
   font-size: 20px;
-  color: #36453b;
+  color: ${Admin.text};
+`;
+
+export const IconeContainer = styled.div`
+  margin-left: -2em;
+  cursor: pointer;
 `;
 
 export const Botao = styled.button`
   width: 310px;
   height: 40px;
   border-radius: 10px;
-  background: #818be7;
-  border-color: #818be7;
-  color: #eeeeee;
-  font-size: 20px;
+  background: ${Admin.main};
+  border-color: ${Admin.main};
+  color: ${Admin.background};
+  font-size: 24px;
   cursor: pointer;
   border: none;
   margin-top: 10px;
 `;
 
 export const Erro = styled.small`
-  color: crimson;
+  color: ${Admin.danger};
   font-size: 16px;
 `;
