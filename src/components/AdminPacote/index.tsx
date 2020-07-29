@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FaPlus } from "react-icons/fa";
-import { FaLongArrowAltLeft } from "react-icons/fa";
+import { FaPlus, FaLongArrowAltLeft } from "react-icons/fa";
+import { GoX } from "react-icons/go";
 import { FiLogOut } from "react-icons/fi";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -313,11 +313,10 @@ const AdminPacote: React.FC = () => {
             fotos.map((foto) => {
               if (!initialFotos.includes(foto)) {
                 var formData = new FormData();
-                formData.append("image", arquivos[0], "chris.jpg");
+                formData.append("image", arquivos[0]);
                 formData.append("pacote_id", pacote.id.toString());
                 api
                   .post(`/foto/create`, formData, config)
-                  .then((res) => console.log(res.data))
                   .catch((erro) => console.log(erro.response.data));
               }
             });
@@ -443,7 +442,17 @@ const AdminPacote: React.FC = () => {
                   <Titulo>Fotos</Titulo>
 
                   <CampoFoto>
-                    {fotos && fotos.map((foto, i) => <Foto key={i} src={foto.image_url} />)}
+                    {fotos &&
+                      fotos.map((foto, i) => (
+                        <div key={i} style={{ display: "flex" }}>
+                          <GoX
+                            style={{ position: "relative", left: 216 }}
+                            color={Admin.text}
+                            size={40}
+                          />
+                          <Foto src={foto.image_url} />
+                        </div>
+                      ))}
                     <input
                       onChange={handlePreview}
                       id="input_foto"
@@ -451,9 +460,11 @@ const AdminPacote: React.FC = () => {
                       accept="image/*"
                       style={{ display: "none" }}
                     />
-                    <AdicionarFoto type="button" onClick={() => handleSimulateClickInput()}>
-                      <FaPlus color={Admin.text} size={60} />
-                    </AdicionarFoto>
+                    <div style={{ display: "flex" }}>
+                      <AdicionarFoto type="button" onClick={() => handleSimulateClickInput()}>
+                        <FaPlus color={Admin.text} size={60} />
+                      </AdicionarFoto>
+                    </div>
                     <Erro>{props.touched.name && props.errors.name}</Erro>
                   </CampoFoto>
                 </Campo>
