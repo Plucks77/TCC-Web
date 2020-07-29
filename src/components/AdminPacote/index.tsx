@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FaPlus } from "react-icons/fa";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { Formik } from "formik";
@@ -27,6 +28,9 @@ import {
   FileiraDescricao,
   InputDescricao,
   CampoDescricao,
+  CampoFoto,
+  Foto,
+  AdicionarFoto,
   BotoesContainer,
   Main,
   Botao,
@@ -82,6 +86,10 @@ interface local {
   name: string;
 }
 
+interface foto {
+  image_url: string;
+}
+
 interface historyPacoteId {
   pacote_id: string;
 }
@@ -92,6 +100,7 @@ const AdminPacote: React.FC = () => {
   const [categories, setCategories] = useState<category[]>([]);
   const [cities, setCities] = useState<city[]>([]);
   const [locals, setLocals] = useState<local[]>([]);
+  const [fotos, setFotos] = useState<foto[]>([]);
   const [ready, setReady] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -186,6 +195,21 @@ const AdminPacote: React.FC = () => {
     }
   }, [pacote]);
 
+  useEffect(() => {
+    if (pacote) {
+      api
+        .get(`/fotos/pacote/${pacote.id}`, config)
+        .then((res) => {
+          setFotos(res.data);
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            handleLogout();
+          }
+        });
+    }
+  }, [pacote]);
+
   function handleChangeCity(city_id: number) {
     if (city_id > 0) {
       api
@@ -233,6 +257,11 @@ const AdminPacote: React.FC = () => {
           handleLogout();
         }
       });
+  }
+
+  function handleSimulateClickInput() {
+    const btn = document.querySelector<HTMLInputElement>("#input_foto");
+    btn?.click();
   }
   return ready ? (
     <Container>
@@ -387,6 +416,28 @@ const AdminPacote: React.FC = () => {
                   <Erro>{props.touched.description && props.errors.description}</Erro>
                 </CampoDescricao>
               </FileiraDescricao>
+
+              <FileiraCampos>
+                <Campo style={{ marginLeft: "5em" }}>
+                  <Titulo>Fotos</Titulo>
+
+                  <CampoFoto>
+                    {fotos && fotos.map((foto, i) => <Foto key={i} src={foto.image_url} />)}
+                    {/* <Foto src="https://images-valetour.s3-sa-east-1.amazonaws.com/Pacotes/pacote1.jpg" />
+                    <Foto src="https://images-valetour.s3-sa-east-1.amazonaws.com/Pacotes/pacote1.jpg" />
+                    <Foto src="https://images-valetour.s3-sa-east-1.amazonaws.com/Pacotes/pacote1.jpg" /> */}
+                    <input id="input_foto" type="file" style={{ display: "none" }} />
+                    <AdicionarFoto type="button">
+                      <FaPlus
+                        onClick={() => handleSimulateClickInput()}
+                        color={Admin.text}
+                        size={60}
+                      />
+                    </AdicionarFoto>
+                    <Erro>{props.touched.name && props.errors.name}</Erro>
+                  </CampoFoto>
+                </Campo>
+              </FileiraCampos>
 
               <BotoesContainer>
                 <Botao type="submit" style={{ background: `${Admin.main}` }}>

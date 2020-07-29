@@ -113,8 +113,39 @@ export const InputDescricao = styled.textarea`
   border: 3px solid ${Admin.main};
   border-radius: 10px;
   padding-left: 10px;
+  padding-top: 5px;
   font-size: 20px;
   color: ${Admin.text};
+`;
+
+export const CampoFoto = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 2em;
+`;
+
+export const Foto = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  margin-left: 1em;
+  margin-bottom: 1em;
+  cursor: pointer;
+`;
+
+export const AdicionarFoto = styled.button`
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  margin-left: 1em;
+  cursor: pointer;
+  background-color: #c4c4c4;
+  opacity: 0.9;
+  border: 1px solid transparent;
+  :hover {
+    opacity: 0.5;
+  }
 `;
 
 export const BotoesContainer = styled.div`
