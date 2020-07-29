@@ -100,7 +100,9 @@ const AdminPacote: React.FC = () => {
   const [categories, setCategories] = useState<category[]>([]);
   const [cities, setCities] = useState<city[]>([]);
   const [locals, setLocals] = useState<local[]>([]);
+  const [initialFotos, setInitialFotos] = useState<foto[]>([]);
   const [fotos, setFotos] = useState<foto[]>([]);
+  const [arquivos, setArquivos] = useState<File[]>([]);
   const [ready, setReady] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -200,6 +202,7 @@ const AdminPacote: React.FC = () => {
       api
         .get(`/fotos/pacote/${pacote.id}`, config)
         .then((res) => {
+          setInitialFotos(res.data);
           setFotos(res.data);
         })
         .catch((err) => {
@@ -263,6 +266,13 @@ const AdminPacote: React.FC = () => {
     const btn = document.querySelector<HTMLInputElement>("#input_foto");
     btn?.click();
   }
+  function handlePreview(file: React.ChangeEvent<HTMLInputElement>) {
+    if (file.target.files != null) {
+      const newFoto = { image_url: URL.createObjectURL(file.target.files[0]) };
+      setFotos([...fotos, newFoto]);
+      setArquivos([...arquivos, file.target.files[0]]);
+    }
+  }
   return ready ? (
     <Container>
       <Header style={deleting ? { opacity: 0.5 } : {}}>
@@ -300,6 +310,17 @@ const AdminPacote: React.FC = () => {
           onSubmit={(values, actions) => {
             const serializedPrice = values.price.replace("R$ ", "");
             values.price = serializedPrice;
+            fotos.map((foto) => {
+              if (!initialFotos.includes(foto)) {
+                var formData = new FormData();
+                formData.append("image", arquivos[0], "chris.jpg");
+                formData.append("pacote_id", pacote.id.toString());
+                api
+                  .post(`/foto/create`, formData, config)
+                  .then((res) => console.log(res.data))
+                  .catch((erro) => console.log(erro.response.data));
+              }
+            });
             api
               .put(`pacote/edit/${pacote.id}`, values, config)
               .then((res) => {
@@ -418,21 +439,20 @@ const AdminPacote: React.FC = () => {
               </FileiraDescricao>
 
               <FileiraCampos>
-                <Campo style={{ marginLeft: "5em" }}>
+                <Campo style={{ marginLeft: "5em", marginRight: "5em" }}>
                   <Titulo>Fotos</Titulo>
 
                   <CampoFoto>
                     {fotos && fotos.map((foto, i) => <Foto key={i} src={foto.image_url} />)}
-                    {/* <Foto src="https://images-valetour.s3-sa-east-1.amazonaws.com/Pacotes/pacote1.jpg" />
-                    <Foto src="https://images-valetour.s3-sa-east-1.amazonaws.com/Pacotes/pacote1.jpg" />
-                    <Foto src="https://images-valetour.s3-sa-east-1.amazonaws.com/Pacotes/pacote1.jpg" /> */}
-                    <input id="input_foto" type="file" style={{ display: "none" }} />
-                    <AdicionarFoto type="button">
-                      <FaPlus
-                        onClick={() => handleSimulateClickInput()}
-                        color={Admin.text}
-                        size={60}
-                      />
+                    <input
+                      onChange={handlePreview}
+                      id="input_foto"
+                      type="file"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                    />
+                    <AdicionarFoto type="button" onClick={() => handleSimulateClickInput()}>
+                      <FaPlus color={Admin.text} size={60} />
                     </AdicionarFoto>
                     <Erro>{props.touched.name && props.errors.name}</Erro>
                   </CampoFoto>
