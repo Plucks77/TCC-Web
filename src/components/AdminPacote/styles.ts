@@ -131,7 +131,6 @@ export const Foto = styled.img`
   border-radius: 10px;
   margin-left: 1em;
   margin-bottom: 1em;
-  cursor: pointer;
 `;
 
 export const AdicionarFoto = styled.button`

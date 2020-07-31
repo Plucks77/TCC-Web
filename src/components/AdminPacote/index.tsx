@@ -87,11 +87,17 @@ interface local {
 }
 
 interface foto {
+  id: string;
   image_url: string;
 }
 
 interface historyPacoteId {
   pacote_id: string;
+}
+
+interface Arquivo {
+  id: string;
+  file: File;
 }
 
 const AdminPacote: React.FC = () => {
@@ -100,9 +106,9 @@ const AdminPacote: React.FC = () => {
   const [categories, setCategories] = useState<category[]>([]);
   const [cities, setCities] = useState<city[]>([]);
   const [locals, setLocals] = useState<local[]>([]);
-  const [initialFotos, setInitialFotos] = useState<foto[]>([]);
+  const [deletedFotos, setDeletedFotos] = useState<string[]>([]);
   const [fotos, setFotos] = useState<foto[]>([]);
-  const [arquivos, setArquivos] = useState<File[]>([]);
+  const [arquivos, setArquivos] = useState<Arquivo[]>([]);
   const [ready, setReady] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -202,7 +208,6 @@ const AdminPacote: React.FC = () => {
       api
         .get(`/fotos/pacote/${pacote.id}`, config)
         .then((res) => {
-          setInitialFotos(res.data);
           setFotos(res.data);
         })
         .catch((err) => {
@@ -268,11 +273,31 @@ const AdminPacote: React.FC = () => {
   }
   function handlePreview(file: React.ChangeEvent<HTMLInputElement>) {
     if (file.target.files != null) {
-      const newFoto = { image_url: URL.createObjectURL(file.target.files[0]) };
+      const newFoto = {
+        id: Math.random().toString(36).substr(2, 9),
+        image_url: URL.createObjectURL(file.target.files[0]),
+      };
       setFotos([...fotos, newFoto]);
-      setArquivos([...arquivos, file.target.files[0]]);
+      const arq = {
+        id: newFoto.id,
+        file: file.target.files[0],
+      };
+      setArquivos([...arquivos, arq]);
     }
   }
+
+  function handleDeleteFoto(oldFoto: foto) {
+    const newFotos = fotos.filter((item) => item.id !== oldFoto.id);
+    setFotos(newFotos);
+    if (typeof oldFoto.id === "number") {
+      setDeletedFotos([...deletedFotos, oldFoto.id]);
+    }
+    if (typeof oldFoto.id === "string") {
+      const newArquivos = arquivos.filter((item) => item.id !== oldFoto.id);
+      setArquivos(newArquivos);
+    }
+  }
+
   return ready ? (
     <Container>
       <Header style={deleting ? { opacity: 0.5 } : {}}>
@@ -310,16 +335,29 @@ const AdminPacote: React.FC = () => {
           onSubmit={(values, actions) => {
             const serializedPrice = values.price.replace("R$ ", "");
             values.price = serializedPrice;
-            fotos.map((foto) => {
-              if (!initialFotos.includes(foto)) {
+
+            //UPLOAD dos arquivos
+            if (arquivos.length > 0) {
+              arquivos.map((arquivo) => {
                 var formData = new FormData();
-                formData.append("image", arquivos[0]);
+                formData.append("image", arquivo.file);
                 formData.append("pacote_id", pacote.id.toString());
                 api
                   .post(`/foto/create`, formData, config)
                   .catch((erro) => console.log(erro.response.data));
-              }
-            });
+              });
+            }
+
+            //DELETE dos arquivos
+            if (deletedFotos.length > 0) {
+              deletedFotos.map((foto_id) => {
+                api
+                  .delete(`/foto/delete/${foto_id}`, config)
+                  .catch((erro) => console.log(erro.response.data));
+              });
+            }
+
+            //EDIT dos dados do pacote
             api
               .put(`pacote/edit/${pacote.id}`, values, config)
               .then((res) => {
@@ -446,9 +484,10 @@ const AdminPacote: React.FC = () => {
                       fotos.map((foto, i) => (
                         <div key={i} style={{ display: "flex" }}>
                           <GoX
-                            style={{ position: "relative", left: 216 }}
+                            style={{ position: "relative", left: 216, cursor: "pointer" }}
                             color={Admin.text}
                             size={40}
+                            onClick={() => handleDeleteFoto(foto)}
                           />
                           <Foto src={foto.image_url} />
                         </div>
@@ -460,12 +499,11 @@ const AdminPacote: React.FC = () => {
                       accept="image/*"
                       style={{ display: "none" }}
                     />
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: "flex", width: 256, justifyContent: "flex-end" }}>
                       <AdicionarFoto type="button" onClick={() => handleSimulateClickInput()}>
                         <FaPlus color={Admin.text} size={60} />
                       </AdicionarFoto>
                     </div>
-                    <Erro>{props.touched.name && props.errors.name}</Erro>
                   </CampoFoto>
                 </Campo>
               </FileiraCampos>
