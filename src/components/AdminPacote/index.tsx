@@ -485,7 +485,7 @@ const AdminPacote: React.FC = () => {
                         <div key={i} style={{ display: "flex" }}>
                           <GoX
                             style={{ position: "relative", left: 216, cursor: "pointer" }}
-                            color={Admin.text}
+                            color={Admin.danger}
                             size={40}
                             onClick={() => handleDeleteFoto(foto)}
                           />
