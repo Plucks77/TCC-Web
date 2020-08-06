@@ -61,6 +61,7 @@ interface pacote {
   guia_id: number;
   city_id: number;
   local_id: number;
+  image_url: string;
   name: string;
   description: string;
   price: string;
@@ -102,6 +103,7 @@ interface Arquivo {
 
 const AdminPacote: React.FC = () => {
   const [pacote, setPacote] = useState<pacote>();
+  const [loadingData, setLoadingData] = useState(true);
   const [guias, setGuias] = useState<guia[]>([]);
   const [categories, setCategories] = useState<category[]>([]);
   const [cities, setCities] = useState<city[]>([]);
@@ -109,6 +111,8 @@ const AdminPacote: React.FC = () => {
   const [deletedFotos, setDeletedFotos] = useState<string[]>([]);
   const [fotos, setFotos] = useState<foto[]>([]);
   const [arquivos, setArquivos] = useState<Arquivo[]>([]);
+  const [newCapa, setNewCapa] = useState<File>();
+  const [deleteUrl, setDeleteUrl] = useState("");
   const [ready, setReady] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -135,6 +139,8 @@ const AdminPacote: React.FC = () => {
       .then((res) => {
         res.data.price = `R$ ${res.data.price}`;
         setPacote(res.data);
+        setDeleteUrl(res.data.image_url);
+        setLoadingData(false);
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -267,10 +273,27 @@ const AdminPacote: React.FC = () => {
       });
   }
 
+  function handleSimulateClickInputCapa() {
+    const btn = document.querySelector<HTMLInputElement>("#input_pacote_foto");
+    btn?.click();
+  }
+
+  function handlePreviewCapa(file: React.ChangeEvent<HTMLInputElement>) {
+    if (file.target.files != null) {
+      const image_url = URL.createObjectURL(file.target.files[0]);
+      if (pacote) {
+        const newPacote = { ...pacote, image_url };
+        setPacote(newPacote);
+        setNewCapa(file.target.files[0]);
+      }
+    }
+  }
+
   function handleSimulateClickInput() {
     const btn = document.querySelector<HTMLInputElement>("#input_foto");
     btn?.click();
   }
+
   function handlePreview(file: React.ChangeEvent<HTMLInputElement>) {
     if (file.target.files != null) {
       const newFoto = {
@@ -320,19 +343,21 @@ const AdminPacote: React.FC = () => {
         </ModalContainer>
       )}
 
-      {pacote ? (
+      {!loadingData && pacote ? (
         <Formik
           initialValues={{
             category_id: pacote.category_id,
             guia_id: pacote.guia_id,
             city_id: pacote.city_id,
             local_id: pacote.local_id,
+            image_url: pacote.image_url,
             name: pacote.name,
             description: pacote.description,
             price: pacote.price,
           }}
           validationSchema={pacoteSchema}
           onSubmit={(values, actions) => {
+            setLoadingData(true);
             const serializedPrice = values.price.replace("R$ ", "");
             values.price = serializedPrice;
 
@@ -357,19 +382,59 @@ const AdminPacote: React.FC = () => {
               });
             }
 
-            //EDIT dos dados do pacote
-            api
-              .put(`pacote/edit/${pacote.id}`, values, config)
-              .then((res) => {
-                if (res.status === 200) {
-                  handleNavigateBack();
-                }
-              })
-              .catch((erro) => {
-                if (erro.response.status === 401) {
-                  handleLogout();
-                }
+            //UPDATE da capa do pacote
+            if (newCapa) {
+              //exclusão da capa anterior
+              const headers = config.headers;
+              const alteredConfig = {
+                headers,
+                data: {
+                  url: deleteUrl,
+                },
+              };
+              api.delete("/delete/foto", alteredConfig).catch((erro) => {
+                console.log(erro);
               });
+
+              //envio da nova capa
+              var formData = new FormData();
+              formData.append("image", newCapa);
+              api
+                .post("/envia/foto/Pacotes", formData, config)
+                .then((res) => {
+                  values.image_url = res.data.url;
+                  //EDIT dos dados do pacote caso tenha uma nova capa
+                  api
+                    .put(`pacote/edit/${pacote.id}`, values, config)
+                    .then((res) => {
+                      if (res.status === 200) {
+                        handleNavigateBack();
+                      }
+                    })
+                    .catch((erro) => {
+                      if (erro.response.status === 401) {
+                        handleLogout();
+                      }
+                    });
+                })
+                .catch((erro) => {
+                  console.log(erro);
+                });
+            } else {
+              //EDIT dos dados do pacote caso NÃO tenha uma nova capa
+              api
+                .put(`pacote/edit/${pacote.id}`, values, config)
+                .then((res) => {
+                  if (res.status === 200) {
+                    handleNavigateBack();
+                  }
+                })
+                .catch((erro) => {
+                  if (erro.response.status === 401) {
+                    handleLogout();
+                  }
+                });
+            }
           }}
         >
           {(props) => (
@@ -474,6 +539,24 @@ const AdminPacote: React.FC = () => {
                   <Erro>{props.touched.description && props.errors.description}</Erro>
                 </CampoDescricao>
               </FileiraDescricao>
+
+              <FileiraCampos>
+                <Campo style={{ marginLeft: "5em" }}>
+                  <Titulo>Capa do pacote</Titulo>
+                  <Foto
+                    src={pacote.image_url}
+                    style={{ cursor: "pointer" }}
+                    onClick={handleSimulateClickInputCapa}
+                  />
+                  <input
+                    id="input_pacote_foto"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handlePreviewCapa}
+                  />
+                </Campo>
+              </FileiraCampos>
 
               <FileiraCampos>
                 <Campo style={{ marginLeft: "5em", marginRight: "5em" }}>
