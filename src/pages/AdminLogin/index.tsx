@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import api from "../../api";
-import { Admin } from "../utils/colors";
+import { Admin } from "../../utils/helpers/colors";
 import {
   Container,
   LoaderContainer,
@@ -29,7 +29,7 @@ const loginSchema = yup.object({
     .required("O e-mail é necessária!")
     .min(8, "Seu e-mail tem pelo menos 8 dígitos!")
     .test("valida-email", "Por favor, digite um enderço de email válido!", (val) => {
-      var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      var re = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
       return re.test(val);
     }),
   password: yup

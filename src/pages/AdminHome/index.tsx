@@ -6,8 +6,8 @@ import { FiLogOut } from "react-icons/fi";
 import { FaPlus } from "react-icons/fa";
 
 import api from "../../api";
-import { isLogged } from "../utils/helpers/Admin";
-import { Admin } from "../utils/colors";
+import { isLogged } from "../../utils/helpers/Admin";
+import { Admin } from "../../utils/helpers/colors";
 import {
   Container,
   SpinnerContainer,

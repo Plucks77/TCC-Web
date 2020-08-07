@@ -9,8 +9,8 @@ import Loader from "react-loader-spinner";
 import InputMask from "react-input-mask";
 
 import api from "../../api";
-import { isLogged } from "../utils/helpers/Admin";
-import { Admin } from "../utils/colors";
+import { isLogged } from "../../utils/helpers/Admin";
+import { Admin } from "../../utils/helpers/colors";
 import {
   Container,
   Header,

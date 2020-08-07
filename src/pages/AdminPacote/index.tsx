@@ -9,10 +9,10 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import InputMask from "react-input-mask";
 
-import { ModalDeleteConfirmation as Modal } from "../ModalDeleteConfirmation";
-import { isLogged } from "../utils/helpers/Admin";
+import { ModalDeleteConfirmation as Modal } from "../../components/ModalDeleteConfirmation";
+import { isLogged } from "../../utils/helpers/Admin";
 import api from "../../api";
-import { Admin } from "../utils/colors";
+import { Admin } from "../../utils/helpers/colors";
 import {
   Container,
   SpinnerContainer,
@@ -29,6 +29,7 @@ import {
   InputDescricao,
   CampoDescricao,
   CampoFoto,
+  FotoContainer,
   Foto,
   AdicionarFoto,
   BotoesContainer,
@@ -565,15 +566,15 @@ const AdminPacote: React.FC = () => {
                   <CampoFoto>
                     {fotos &&
                       fotos.map((foto, i) => (
-                        <div key={i} style={{ display: "flex" }}>
+                        <FotoContainer key={i}>
                           <GoX
-                            style={{ position: "relative", left: 216, cursor: "pointer" }}
-                            color={Admin.danger}
+                            style={{ cursor: "pointer" }}
+                            color={Admin.text}
                             size={40}
                             onClick={() => handleDeleteFoto(foto)}
                           />
                           <Foto src={foto.image_url} />
-                        </div>
+                        </FotoContainer>
                       ))}
                     <input
                       onChange={handlePreview}
@@ -582,11 +583,9 @@ const AdminPacote: React.FC = () => {
                       accept="image/*"
                       style={{ display: "none" }}
                     />
-                    <div style={{ display: "flex", width: 256, justifyContent: "flex-end" }}>
-                      <AdicionarFoto type="button" onClick={() => handleSimulateClickInput()}>
-                        <FaPlus color={Admin.text} size={60} />
-                      </AdicionarFoto>
-                    </div>
+                    <AdicionarFoto type="button" onClick={() => handleSimulateClickInput()}>
+                      <FaPlus color={Admin.text} size={60} />
+                    </AdicionarFoto>
                   </CampoFoto>
                 </Campo>
               </FileiraCampos>

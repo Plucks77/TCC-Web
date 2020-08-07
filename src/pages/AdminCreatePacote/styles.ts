@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Admin } from "../utils/colors";
+import { Admin } from "../../utils/helpers/colors";
 
 export const Container = styled.div`
   display: flex;

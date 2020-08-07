@@ -15,6 +15,7 @@
     "@types/styled-components": "^5.1.0",
     "@types/yup": "^0.29.0",
     "@types/react-input-mask": "^2.0.5",
+    "typescript": "~3.7.2",
     "axios": "^0.19.2",
     "formik": "^2.1.4",
     "install": "^0.13.0",
@@ -27,9 +28,9 @@
     "react-scripts": "3.4.1",
     "serve": "^11.3.0",
     "styled-components": "^5.1.0",
-    "typescript": "~3.7.2",
     "yup": "^0.29.0"
   },
+  "devDependencies": {},
   "scripts": {
     "start": "serve -s build",
     "dev": "react-scripts start",

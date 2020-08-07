@@ -5,12 +5,13 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import InputMask from "react-input-mask";
 import { useHistory } from "react-router-dom";
+// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 
 import api from "../../api";
-import { isLogged } from "../utils/helpers/Admin";
-import { Admin } from "../utils/colors";
+import { isLogged } from "../../utils/helpers/Admin";
+import { Admin } from "../../utils/helpers/colors";
 import {
   Container,
   SpinnerContainer,

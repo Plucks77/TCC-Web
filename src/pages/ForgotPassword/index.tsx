@@ -6,7 +6,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-import { Admin } from "../utils/colors";
+import { Admin } from "../../utils/helpers/colors";
 import api from "../../api";
 import {
   Container,
@@ -40,7 +40,6 @@ interface IValue {
 }
 
 const ForgotPassword: React.FC = () => {
-  const [visible, setVisible] = useState(false);
   const [ready, setReady] = useState(false);
   const [isChanged, setIsChanged] = useState(false);
   const [invalid, setInvalid] = useState(false);

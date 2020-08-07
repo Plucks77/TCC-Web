@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Forgot from "./components/ForgotPassword";
-import AdminLogin from "./components/AdminLogin";
-import AdminHome from "./components/AdminHome";
-import AdminPacote from "./components/AdminPacote";
-import AdminGuias from "./components/AdminGuias";
-import AdminGuia from "./components/AdminGuia";
-import AdminCreateGuia from "./components/AdminCreateGuia";
-import AdminCreatePacote from "./components/AdminCreatePacote";
-import PageNotFound from "./components/PageNotFound";
+import Forgot from "./pages/ForgotPassword";
+import AdminLogin from "./pages/AdminLogin";
+import AdminHome from "./pages/AdminHome";
+import AdminPacote from "./pages/AdminPacote";
+import AdminGuias from "./pages/AdminGuias";
+import AdminGuia from "./pages/AdminGuia";
+import AdminCreateGuia from "./pages/AdminCreateGuia";
+import AdminCreatePacote from "./pages/AdminCreatePacote";
+import PageNotFound from "./pages/PageNotFound";
 
 export default function RouterApp() {
   return (

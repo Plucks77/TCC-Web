@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Admin } from "../utils/colors";
+import { Admin } from "../../utils/helpers/colors";
 
 export const Container = styled.div`
   display: flex;
@@ -125,19 +125,27 @@ export const CampoFoto = styled.div`
   margin-bottom: 2em;
 `;
 
+export const FotoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  border-radius: 10px;
+  background-color: ${Admin.mainLight};
+`;
+
 export const Foto = styled.img`
   width: 200px;
   height: 200px;
   border-radius: 10px;
-  margin-left: 1em;
-  margin-bottom: 1em;
 `;
 
 export const AdicionarFoto = styled.button`
+  margin-top: 40px;
   width: 200px;
   height: 200px;
   border-radius: 10px;
-  margin-left: 1em;
   cursor: pointer;
   background-color: #c4c4c4;
   opacity: 0.9;

@@ -1,7 +1,7 @@
 import React from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-import { Admin } from "../utils/colors";
+import { Admin } from "../../utils/helpers/colors";
 import {
   Container,
   Titulo,

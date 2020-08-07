@@ -8,11 +8,11 @@ import { useHistory } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 
-import { ModalDeleteConfirmation as Modal } from "../ModalDeleteConfirmation";
+import { ModalDeleteConfirmation as Modal } from "../../components/ModalDeleteConfirmation";
 
 import api from "../../api";
-import { isLogged } from "../utils/helpers/Admin";
-import { Admin } from "../utils/colors";
+import { isLogged } from "../../utils/helpers/Admin";
+import { Admin } from "../../utils/helpers/colors";
 import {
   Container,
   SpinnerContainer,
