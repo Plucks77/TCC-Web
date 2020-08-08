@@ -172,6 +172,9 @@ export const Botao = styled.button`
   font-size: 25px;
   margin: 0 0 0 2em;
   cursor: pointer;
+  :hover {
+    opacity: 0.8;
+  }
 `;
 
 export const SpinnerContainer = styled.div`
