@@ -113,8 +113,46 @@ export const InputDescricao = styled.textarea`
   border: 3px solid ${Admin.main};
   border-radius: 10px;
   padding-left: 10px;
+  padding-top: 5px;
   font-size: 20px;
   color: ${Admin.text};
+`;
+
+export const CampoFoto = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 2em;
+`;
+
+export const FotoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  border-radius: 10px;
+  background-color: ${Admin.mainLight};
+`;
+
+export const Foto = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+`;
+
+export const AdicionarFoto = styled.button`
+  margin-top: 40px;
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #c4c4c4;
+  opacity: 0.9;
+  border: 1px solid transparent;
+  :hover {
+    opacity: 0.5;
+  }
 `;
 
 export const BotoesContainer = styled.div`
@@ -134,13 +172,9 @@ export const Botao = styled.button`
   font-size: 25px;
   margin: 0 0 0 2em;
   cursor: pointer;
-`;
-
-export const SpinnerContainer = styled.div`
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
+  :hover {
+    opacity: 0.8;
+  }
 `;
 
 export const LoadingContainer = styled.div`
@@ -157,13 +191,4 @@ export const Erro = styled.small`
   font-size: 16px;
   align-self: center;
   margin-top: 1px;
-`;
-
-export const ModalContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 30;
 `;

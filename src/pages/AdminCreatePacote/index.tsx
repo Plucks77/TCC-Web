@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { FaLongArrowAltLeft } from "react-icons/fa";
+import { FaLongArrowAltLeft, FaPlus } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
+import { GoX } from "react-icons/go";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
@@ -25,6 +26,10 @@ import {
   FileiraDescricao,
   InputDescricao,
   CampoDescricao,
+  CampoFoto,
+  FotoContainer,
+  Foto,
+  AdicionarFoto,
   BotoesContainer,
   Main,
   Botao,
@@ -68,11 +73,19 @@ interface local {
   name: string;
 }
 
+interface imagem {
+  id: string;
+  arquivo: File;
+  image_url: string;
+}
+
 const AdminCreatePacote: React.FC = () => {
   const [guias, setGuias] = useState<guia[]>([]);
   const [categories, setCategories] = useState<category[]>([]);
   const [cities, setCities] = useState<city[]>([]);
   const [locals, setLocals] = useState<local[]>([]);
+  const [fotos, setFotos] = useState<imagem[]>([]);
+  const [capa, setCapa] = useState<imagem>();
   const [ready, setReady] = useState(false);
 
   const history = useHistory();
@@ -160,6 +173,44 @@ const AdminCreatePacote: React.FC = () => {
     localStorage.clear();
     history.push("/Admin/login");
   }
+
+  function handleSimulateClickInputCapa() {
+    const btn = document.querySelector<HTMLInputElement>("#input_pacote_foto");
+    btn?.click();
+  }
+
+  function handlePreviewCapa(file: React.ChangeEvent<HTMLInputElement>) {
+    if (file.target.files != null) {
+      const newCapa = {
+        id: Math.random().toString(36).substr(2, 9),
+        arquivo: file.target.files[0],
+        image_url: URL.createObjectURL(file.target.files[0]),
+      };
+      setCapa(newCapa);
+    }
+  }
+
+  function handleSimulateClickInput() {
+    const btn = document.querySelector<HTMLInputElement>("#input_foto");
+    btn?.click();
+  }
+
+  function handlePreview(file: React.ChangeEvent<HTMLInputElement>) {
+    if (file.target.files != null) {
+      const newFoto = {
+        id: Math.random().toString(36).substr(2, 9),
+        arquivo: file.target.files[0],
+        image_url: URL.createObjectURL(file.target.files[0]),
+      };
+      setFotos([...fotos, newFoto]);
+    }
+  }
+
+  function handleDeleteFoto(oldFoto: imagem) {
+    const newFotos = fotos.filter((item) => item.id !== oldFoto.id);
+    setFotos(newFotos);
+  }
+
   return ready ? (
     <Container>
       <Header>
@@ -182,16 +233,55 @@ const AdminCreatePacote: React.FC = () => {
           description: "",
           price: "R$ ",
           date: "0",
-          image_url: "https://images-valetour.s3-sa-east-1.amazonaws.com/Pacotes/pacote1.jpg",
+          image_url: "",
+          capa: undefined,
+          fotos: undefined,
         }}
         validationSchema={pacoteSchema}
         onSubmit={(values, actions) => {
+          let erros = false;
           const serializedPrice = values.price.replace("R$ ", "");
           values.price = serializedPrice;
+
+          if (!capa) {
+            actions.setFieldError(
+              "capa",
+              "Selecione uma imagem para ser usada como a capa do pacote!"
+            );
+            erros = true;
+          }
+
+          if (fotos.length === 0) {
+            actions.setFieldError("fotos", "Selecione pelo menos 1 foto para este pacote!");
+            erros = true;
+          }
+          if (erros) {
+            return;
+          }
+
+          var formData = new FormData();
+          if (capa) formData.append("image", capa?.arquivo);
+          formData.append("category_id", values.category_id);
+          formData.append("guia_id", values.guia_id);
+          formData.append("local_id", values.local_id);
+          formData.append("name", values.name);
+          formData.append("description", values.description);
+          formData.append("price", values.price);
+          formData.append("date", values.date);
+
           api
-            .post("pacote/create", values, config)
+            .post("pacote/create", formData, config)
             .then((res) => {
               if (res.status === 200) {
+                const id = res.data.pacote.id;
+                fotos.map((foto) => {
+                  var formData = new FormData();
+                  formData.append("image", foto.arquivo);
+                  formData.append("pacote_id", id);
+                  api
+                    .post(`/foto/create`, formData, config)
+                    .catch((erro) => console.log(erro.response.data));
+                });
                 handleNavigateBack();
               }
             })
@@ -306,6 +396,72 @@ const AdminCreatePacote: React.FC = () => {
                 <Erro>{props.touched.description && props.errors.description}</Erro>
               </CampoDescricao>
             </FileiraDescricao>
+
+            <FileiraCampos>
+              <Campo style={{ marginLeft: "5em" }}>
+                <Titulo>Capa do pacote</Titulo>
+                {capa ? (
+                  <Foto
+                    src={capa.image_url}
+                    style={{ cursor: "pointer" }}
+                    onClick={handleSimulateClickInputCapa}
+                  />
+                ) : (
+                  <>
+                    <AdicionarFoto type="button" onClick={() => handleSimulateClickInputCapa()}>
+                      <FaPlus color={Admin.text} size={60} />
+                    </AdicionarFoto>
+                    <Erro>{props.touched.capa && props.errors.capa}</Erro>
+                  </>
+                )}
+
+                <input
+                  id="input_pacote_foto"
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={handlePreviewCapa}
+                  onBlur={props.handleBlur("capa")}
+                />
+              </Campo>
+            </FileiraCampos>
+
+            <FileiraCampos>
+              <Campo style={{ marginLeft: "5em", marginRight: "5em" }}>
+                <Titulo>Fotos</Titulo>
+
+                <CampoFoto>
+                  {fotos &&
+                    fotos.map((foto, i) => (
+                      <FotoContainer key={i}>
+                        <GoX
+                          style={{ cursor: "pointer" }}
+                          color={Admin.text}
+                          size={40}
+                          onClick={() => {
+                            handleDeleteFoto(foto);
+                          }}
+                        />
+                        <Foto src={foto.image_url} />
+                      </FotoContainer>
+                    ))}
+                  <input
+                    onChange={handlePreview}
+                    id="input_foto"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onBlur={props.handleBlur("fotos")}
+                  />
+                  <AdicionarFoto type="button" onClick={() => handleSimulateClickInput()}>
+                    <FaPlus color={Admin.text} size={60} />
+                  </AdicionarFoto>
+                </CampoFoto>
+                <Erro style={{ marginTop: "-2em" }}>
+                  {fotos.length === 0 && props.touched.fotos && props.errors.fotos}
+                </Erro>
+              </Campo>
+            </FileiraCampos>
 
             <BotoesContainer>
               <Botao type="submit" style={{ background: `${Admin.main}` }}>
