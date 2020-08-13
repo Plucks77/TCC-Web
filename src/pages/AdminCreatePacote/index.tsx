@@ -51,6 +51,7 @@ const pacoteSchema = yup.object({
   category_id: yup.number().min(1, "É preciso definir uma categoria para este pacote!"),
   local_id: yup.number().min(1, "É preciso definir um local para este pacote!"),
   city_id: yup.number().min(1, "É preciso definir uma cidade para este pacote!"),
+  date: yup.string().required("É necessário definir uma data para o pacote!"),
 });
 
 interface guia {
@@ -232,7 +233,7 @@ const AdminCreatePacote: React.FC = () => {
           name: "",
           description: "",
           price: "R$ ",
-          date: "0",
+          date: "",
           image_url: "",
           capa: undefined,
           fotos: undefined,
@@ -381,6 +382,19 @@ const AdminCreatePacote: React.FC = () => {
                   ))}
                 </Select>
                 <Erro>{props.touched.local_id && props.errors.local_id}</Erro>
+              </Campo>
+            </FileiraCampos>
+
+            <FileiraCampos>
+              <Campo style={{ marginLeft: "5em" }}>
+                <Titulo>Data</Titulo>
+                <Input
+                  type="datetime-local"
+                  onChange={props.handleChange("date")}
+                  value={props.values.date}
+                  onBlur={props.handleBlur("date")}
+                />
+                <Erro>{props.touched.date && props.errors.date}</Erro>
               </Campo>
             </FileiraCampos>
 

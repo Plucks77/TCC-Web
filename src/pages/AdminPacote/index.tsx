@@ -54,6 +54,7 @@ const pacoteSchema = yup.object({
   category_id: yup.number().min(1, "É preciso definir uma categoria para este pacote!"),
   local_id: yup.number().min(1, "É preciso definir um local para este pacote!"),
   city_id: yup.number().min(1, "É preciso definir uma cidade para este pacote!"),
+  date: yup.string().required("É necessário definir uma data para o pacote!"),
 });
 
 interface pacote {
@@ -66,6 +67,7 @@ interface pacote {
   name: string;
   description: string;
   price: string;
+  date: string;
 }
 
 interface guia {
@@ -355,6 +357,7 @@ const AdminPacote: React.FC = () => {
             name: pacote.name,
             description: pacote.description,
             price: pacote.price,
+            date: pacote.date,
           }}
           validationSchema={pacoteSchema}
           onSubmit={(values, actions) => {
@@ -524,6 +527,19 @@ const AdminPacote: React.FC = () => {
                     ))}
                   </Select>
                   <Erro>{props.touched.local_id && props.errors.local_id}</Erro>
+                </Campo>
+              </FileiraCampos>
+
+              <FileiraCampos>
+                <Campo style={{ marginLeft: "5em" }}>
+                  <Titulo>Data</Titulo>
+                  <Input
+                    type="datetime-local"
+                    onChange={props.handleChange("date")}
+                    value={props.values.date}
+                    onBlur={props.handleBlur("date")}
+                  />
+                  <Erro>{props.touched.date && props.errors.date}</Erro>
                 </Campo>
               </FileiraCampos>
 
